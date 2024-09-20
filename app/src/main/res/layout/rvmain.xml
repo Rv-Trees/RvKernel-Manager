@@ -1,0 +1,39 @@
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true">
+
+    <LinearLayout
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:gravity="center_horizontal">
+
+        <include
+            android:id="@+id/RvKernelBanner"
+            layout="@layout/rvbanner" />
+
+        <include
+            android:id="@+id/RvScheduler"
+            layout="@layout/rvscheduler" />
+        
+        <include
+            android:id="@+id/RvCharging"
+            layout="@layout/rvcharging" />
+        
+        <include
+            android:id="@+id/RvGPU"
+            layout="@layout/rvgpu" />
+
+        <include
+            android:id="@+id/RvTuning"
+            layout="@layout/rvtuning" />
+
+        <include
+            android:id="@+id/RvDeviceInfo"
+            layout="@layout/rvdeviceinfo" />
+
+    </LinearLayout>
+</ScrollView>
