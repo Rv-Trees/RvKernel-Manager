@@ -7,7 +7,5 @@
     <string name="input_suspend">Bypass Charging</string>
     <string name="force_fast_charge">Fast Charging</string>
     <string name="disable_thermal">Disable Thermal Charging</string>
-    <string name="little_iowait_boost_enable">I/O Wait Little Boost</string>
-    <string name="big_iowait_boost_enable">I/O Wait Big Boost</string>
     <string name="thermal_gpu">Disable Thermal GPU</string>
 </resources>
