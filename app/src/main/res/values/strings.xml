@@ -2,7 +2,6 @@
 <resources>
     <string name="app_name">RvKernel Manager</string>
     <string name="sched_autogroup_enabled">Auto Task Groups</string>
-    <string name="sched_cfs_boost">CFS Boost</string>
     <string name="sched_child_runs_first">Optimize Child Process</string>
     <string name="input_suspend">Bypass Charging</string>
     <string name="force_fast_charge">Fast Charging</string>

@@ -14,9 +14,6 @@ public class RvSwitch {
 
         binding.RvScheduler.schedautogroupSwitch.setOnCheckedChangeListener(
                 (buttonView, isChecked) -> changeSchedAutoGroup(isChecked ? "1" : "0"));
-
-        binding.RvScheduler.cfsSwitch.setOnCheckedChangeListener(
-                (buttonView, isChecked) -> changeCfsBoost(isChecked ? "100" : "0"));
         
         binding.RvScheduler.schedchildrunfirstSwitch.setOnCheckedChangeListener(
                 (buttonView, isChecked) -> changeSchedChildRunFirst(isChecked ? "1" : "0"));
@@ -37,9 +34,6 @@ public class RvSwitch {
     private static void updateSwitchStates(RvmainBinding binding) {
         String schedAutoGroupValue = getSchedAutoGroupValue();
         binding.RvScheduler.schedautogroupSwitch.setChecked(schedAutoGroupValue.equals("1"));
-
-        String cfsBoostValue = getCfsBoostValue();
-        binding.RvScheduler.cfsSwitch.setChecked(cfsBoostValue.equals("100"));
         
         String schedChildRunFirstValue = getSchedChildRunFirstValue();
         binding.RvScheduler.schedchildrunfirstSwitch.setChecked(schedChildRunFirstValue.equals("1"));
@@ -59,10 +53,6 @@ public class RvSwitch {
 
     private static String getSchedAutoGroupValue() {
         return executeCommandWithResult("cat /proc/sys/kernel/sched_autogroup_enabled");
-    }
-
-    private static String getCfsBoostValue() {
-        return executeCommandWithResult("cat /proc/sys/kernel/sched_cfs_boost");
     }
     
     private static String getSchedChildRunFirstValue() {
@@ -104,10 +94,6 @@ public class RvSwitch {
 
     private static void changeSchedAutoGroup(String value) {
         executeCommand("echo " + value + " > /proc/sys/kernel/sched_autogroup_enabled");
-    }
-
-    private static void changeCfsBoost(String value) {
-        executeCommand("echo " + value + " > /proc/sys/kernel/sched_cfs_boost");
     }
     
     private static void changeSchedChildRunFirst(String value) {
