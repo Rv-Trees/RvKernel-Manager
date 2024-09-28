@@ -80,7 +80,7 @@
                     android:clickable="false"
                     android:textSize="18sp"
                     android:textColor="@color/textColorPrimary"
-                    android:text="Adreno Boost" />
+                    android:text="@string/adreno_boost" />
 
                 <com.google.android.material.button.MaterialButton
                     app:backgroundTint="@color/colorContainerOverlay"

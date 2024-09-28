@@ -1,10 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">RvKernel Manager</string>
+
+    <!-- Scheduler -->
     <string name="sched_autogroup_enabled">Auto Task Groups</string>
     <string name="sched_child_runs_first">Optimize Child Process</string>
+
+    <!-- Charging -->
     <string name="input_suspend">Bypass Charging</string>
     <string name="force_fast_charge">Fast Charging</string>
     <string name="disable_thermal">Disable Thermal Charging</string>
+
+    <!-- GPU -->
     <string name="thermal_gpu">Disable Thermal GPU</string>
+    <string name="adreno_boost">Adreno Boost</string>
 </resources>
