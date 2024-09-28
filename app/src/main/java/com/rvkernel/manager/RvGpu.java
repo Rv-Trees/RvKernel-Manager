@@ -77,7 +77,7 @@ public class RvGpu {
     }
     
     public void throttlingSwitch(Context context, Switch throttlingSwitch) {
-        int currentThrottlingValue = loadThrottlingFromFile();
+        int currentThrottlingValue = loadThrottling();
         throttlingSwitch.setChecked(currentThrottlingValue == 0);
 
         throttlingSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
@@ -100,7 +100,7 @@ public class RvGpu {
         }
     }
     
-    private int loadThrottlingFromFile() {
+    private int loadThrottling() {
         try {
             Process process =
                     Runtime.getRuntime()
