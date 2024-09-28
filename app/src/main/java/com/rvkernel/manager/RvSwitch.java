@@ -11,9 +11,6 @@ public class RvSwitch {
 
     public static void RvSwitchLogic(RvmainBinding binding) {
         updateSwitchStates(binding);
-
-        binding.RvScheduler.schedautogroupSwitch.setOnCheckedChangeListener(
-                (buttonView, isChecked) -> changeSchedAutoGroup(isChecked ? "1" : "0"));
         
         binding.RvScheduler.schedchildrunfirstSwitch.setOnCheckedChangeListener(
                 (buttonView, isChecked) -> changeSchedChildRunFirst(isChecked ? "1" : "0"));
@@ -29,8 +26,6 @@ public class RvSwitch {
     }
 
     private static void updateSwitchStates(RvmainBinding binding) {
-        String schedAutoGroupValue = getSchedAutoGroupValue();
-        binding.RvScheduler.schedautogroupSwitch.setChecked(schedAutoGroupValue.equals("1"));
         
         String schedChildRunFirstValue = getSchedChildRunFirstValue();
         binding.RvScheduler.schedchildrunfirstSwitch.setChecked(schedChildRunFirstValue.equals("1"));
@@ -43,10 +38,6 @@ public class RvSwitch {
 
         String disableThermalChargingValue = getDisableThermalChargingValue();
         binding.RvCharging.disablethermalchargingSwitch.setChecked(disableThermalChargingValue.equals("1"));
-    }
-
-    private static String getSchedAutoGroupValue() {
-        return executeCommandWithResult("cat /proc/sys/kernel/sched_autogroup_enabled");
     }
     
     private static String getSchedChildRunFirstValue() {
@@ -80,10 +71,6 @@ public class RvSwitch {
                 process.destroy();
             }
         }
-    }
-
-    private static void changeSchedAutoGroup(String value) {
-        executeCommand("echo " + value + " > /proc/sys/kernel/sched_autogroup_enabled");
     }
     
     private static void changeSchedChildRunFirst(String value) {

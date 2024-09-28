@@ -1,0 +1,51 @@
+package com.rvkernel.manager;
+
+import android.content.Context;
+import android.widget.Switch;
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.IOException;
+
+public class RvScheduler {
+    public void schedAutoGroupSwitch(Context context, Switch schedAutoGroupSwitch) {
+        int currentSchedAutoGroupValue = loadSchedAutoGroup();
+        schedAutoGroupSwitch.setChecked(currentSchedAutoGroupValue == 1);
+
+        schedAutoGroupSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            int value = isChecked ? 1 : 0;
+            setSchedAutoGroup(value);
+        });
+    }
+    
+    private boolean setSchedAutoGroup(int value) {
+        try {
+            Process process =
+                    Runtime.getRuntime()
+                            .exec(
+                                    "su -c echo " + value + " > " + "/proc/sys/kernel/sched_autogroup_enabled");
+            process.waitFor();
+            return process.exitValue() == 0;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+    
+    private int loadSchedAutoGroup() {
+        try {
+            Process process =
+                    Runtime.getRuntime()
+                            .exec("su -c cat " + "/proc/sys/kernel/sched_autogroup_enabled");
+            BufferedReader reader =
+                    new BufferedReader(new InputStreamReader(process.getInputStream()));
+            String line = reader.readLine();
+            if (line != null) {
+                return Integer.parseInt(line.trim());
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
+}
