@@ -20,7 +20,7 @@ public class RvGpu {
     private int[] boostValues = {0, 1, 2, 3};
 
     public void showAdrenoBoostDialog(Context context, Button btnSetAdrenoBoost) {
-        int currentMode = loadAdrenoBoostFromFile();
+        int currentMode = loadAdrenoBoost();
         btnSetAdrenoBoost.setText(boostDescriptions[currentMode]);
 
         btnSetAdrenoBoost.setOnClickListener(
@@ -59,7 +59,7 @@ public class RvGpu {
         }
     }
 
-    private int loadAdrenoBoostFromFile() {
+    private int loadAdrenoBoost() {
         try {
             Process process =
                     Runtime.getRuntime()
