@@ -69,11 +69,13 @@ public class RvMain extends AppCompatActivity {
         Button btnSetAdrenoBoost = findViewById(R.id.btnSetAdrenoBoost);
         Switch switchGpuThrottling = findViewById(R.id.switchGpuThrottling);
         Switch switchSchedAutoGroup = findViewById(R.id.switchSchedAutoGroup);
+        Switch switchSchedChildRunFirst = findViewById(R.id.switchSchedChildRunFirst);
         RvGpu rvGpu = new RvGpu();
         RvScheduler rvScheduler = new RvScheduler();
         rvGpu.showAdrenoBoost(this, btnSetAdrenoBoost);
         rvGpu.throttlingSwitch(this, switchGpuThrottling);
         rvScheduler.schedAutoGroupSwitch(this, switchSchedAutoGroup);
+        rvScheduler.schedChildRunFirstSwitch(this, switchSchedChildRunFirst);
     }
 
     private void requestStoragePermission() {

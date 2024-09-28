@@ -11,9 +11,6 @@ public class RvSwitch {
 
     public static void RvSwitchLogic(RvmainBinding binding) {
         updateSwitchStates(binding);
-        
-        binding.RvScheduler.schedchildrunfirstSwitch.setOnCheckedChangeListener(
-                (buttonView, isChecked) -> changeSchedChildRunFirst(isChecked ? "1" : "0"));
 
         binding.RvCharging.bypassSwitch.setOnCheckedChangeListener(
                 (buttonView, isChecked) -> changeInputSuspend(isChecked ? "1" : "0"));
@@ -26,9 +23,6 @@ public class RvSwitch {
     }
 
     private static void updateSwitchStates(RvmainBinding binding) {
-        
-        String schedChildRunFirstValue = getSchedChildRunFirstValue();
-        binding.RvScheduler.schedchildrunfirstSwitch.setChecked(schedChildRunFirstValue.equals("1"));
 
         String inputSuspendValue = getInputSuspendValue();
         binding.RvCharging.bypassSwitch.setChecked(inputSuspendValue.equals("1"));
@@ -38,10 +32,6 @@ public class RvSwitch {
 
         String disableThermalChargingValue = getDisableThermalChargingValue();
         binding.RvCharging.disablethermalchargingSwitch.setChecked(disableThermalChargingValue.equals("1"));
-    }
-    
-    private static String getSchedChildRunFirstValue() {
-        return executeCommandWithResult("cat /proc/sys/kernel/sched_child_runs_first");
     }
 
     private static String getInputSuspendValue() {
@@ -71,10 +61,6 @@ public class RvSwitch {
                 process.destroy();
             }
         }
-    }
-    
-    private static void changeSchedChildRunFirst(String value) {
-        executeCommand("echo " + value + " > /proc/sys/kernel/sched_child_runs_first");
     }
 
     private static void changeInputSuspend(String value) {

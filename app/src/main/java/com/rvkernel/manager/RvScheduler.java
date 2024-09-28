@@ -48,4 +48,45 @@ public class RvScheduler {
         }
         return 0;
     }
+    
+    public void schedChildRunFirstSwitch(Context context, Switch schedChildRunFirstSwitch) {
+        int currentSchedChildRunFirstValue = loadSchedChildRunFirst();
+        schedChildRunFirstSwitch.setChecked(currentSchedChildRunFirstValue == 1);
+
+        schedChildRunFirstSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            int value = isChecked ? 1 : 0;
+            setSchedChildRunFirst(value);
+        });
+    }
+    
+    private boolean setSchedChildRunFirst(int value) {
+        try {
+            Process process =
+                    Runtime.getRuntime()
+                            .exec(
+                                    "su -c echo " + value + " > " + "/proc/sys/kernel/sched_child_runs_first");
+            process.waitFor();
+            return process.exitValue() == 0;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+    
+    private int loadSchedChildRunFirst() {
+        try {
+            Process process =
+                    Runtime.getRuntime()
+                            .exec("su -c cat " + "/proc/sys/kernel/sched_child_runs_first");
+            BufferedReader reader =
+                    new BufferedReader(new InputStreamReader(process.getInputStream()));
+            String line = reader.readLine();
+            if (line != null) {
+                return Integer.parseInt(line.trim());
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
 }
