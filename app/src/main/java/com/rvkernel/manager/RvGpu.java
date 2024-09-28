@@ -35,7 +35,6 @@ public class RvGpu {
                                     int selectedValue = boostValues[which];
 
                                     if (setAdrenoBoost(selectedValue)) {
-                                        saveAdrenoBoost(context, selectedValue);
                                         btnSetAdrenoBoost.setText(boostDescriptions[which]);
                                     }
                                 });
@@ -57,13 +56,6 @@ public class RvGpu {
             e.printStackTrace();
             return false;
         }
-    }
-
-    private void saveAdrenoBoost(Context context, int value) {
-        SharedPreferences prefs = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = prefs.edit();
-        editor.putInt(KEY_ADRENO_MODE, value);
-        editor.apply();
     }
 
     private int loadAdrenoBoostFromFile() {
