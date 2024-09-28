@@ -26,6 +26,7 @@ public class RvSwitch {
 
         binding.RvCharging.disablethermalchargingSwitch.setOnCheckedChangeListener(
                 (buttonView, isChecked) -> changeDisableThermalCharging(isChecked ? "1" : "0"));
+    }
 
     private static void updateSwitchStates(RvmainBinding binding) {
         String schedAutoGroupValue = getSchedAutoGroupValue();
@@ -42,6 +43,7 @@ public class RvSwitch {
 
         String disableThermalChargingValue = getDisableThermalChargingValue();
         binding.RvCharging.disablethermalchargingSwitch.setChecked(disableThermalChargingValue.equals("1"));
+    }
 
     private static String getSchedAutoGroupValue() {
         return executeCommandWithResult("cat /proc/sys/kernel/sched_autogroup_enabled");
