@@ -19,7 +19,7 @@ public class RvGpu {
     private String[] boostDescriptions = {"Off", "Low", "Medium", "High"};
     private int[] boostValues = {0, 1, 2, 3};
 
-    public void showAdrenoBoostDialog(Context context, Button btnSetAdrenoBoost) {
+    public void showAdrenoBoost(Context context, Button btnSetAdrenoBoost) {
         int currentMode = loadAdrenoBoost();
         btnSetAdrenoBoost.setText(boostDescriptions[currentMode]);
 

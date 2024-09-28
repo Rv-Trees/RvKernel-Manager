@@ -69,7 +69,7 @@ public class RvMain extends AppCompatActivity {
         Button btnSetAdrenoBoost = findViewById(R.id.btnSetAdrenoBoost);
         Switch switchGpuThrottling = findViewById(R.id.switchGpuThrottling);
         RvGpu rvGpu = new RvGpu();
-        rvGpu.showAdrenoBoostDialog(this, btnSetAdrenoBoost);
+        rvGpu.showAdrenoBoost(this, btnSetAdrenoBoost);
         rvGpu.throttlingSwitch(this, switchGpuThrottling);
     }
 
