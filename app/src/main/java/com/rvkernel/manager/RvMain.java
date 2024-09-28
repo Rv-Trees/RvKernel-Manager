@@ -66,8 +66,8 @@ public class RvMain extends AppCompatActivity {
         setupRvUI();
         
         Button btnSetAdrenoBoost = findViewById(R.id.btnSetAdrenoBoost);
-        RvAdreno rvAdreno = new RvAdreno();
-        rvAdreno.showAdrenoBoostDialog(this, btnSetAdrenoBoost);
+        RvGpu rvGpu = new RvGpu();
+        rvGpu.showAdrenoBoostDialog(this, btnSetAdrenoBoost);
     }
 
     private void requestStoragePermission() {

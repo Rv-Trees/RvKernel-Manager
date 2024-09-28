@@ -10,7 +10,7 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.IOException;
 
-public class RvAdreno {
+public class RvGpu {
 
     private static final String PREFS_NAME = "AdrenoBoostPrefs";
     private static final String KEY_ADRENO_MODE = "adreno_mode";
