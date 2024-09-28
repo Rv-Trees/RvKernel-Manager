@@ -26,10 +26,6 @@ public class RvSwitch {
 
         binding.RvCharging.disablethermalchargingSwitch.setOnCheckedChangeListener(
                 (buttonView, isChecked) -> changeDisableThermalCharging(isChecked ? "1" : "0"));
-        
-        binding.RvGPU.disablethermalgpuSwitch.setOnCheckedChangeListener(
-                (buttonView, isChecked) -> changeDisableThermalGpu(isChecked ? "0" : "1"));
-    }
 
     private static void updateSwitchStates(RvmainBinding binding) {
         String schedAutoGroupValue = getSchedAutoGroupValue();
@@ -46,10 +42,6 @@ public class RvSwitch {
 
         String disableThermalChargingValue = getDisableThermalChargingValue();
         binding.RvCharging.disablethermalchargingSwitch.setChecked(disableThermalChargingValue.equals("1"));
-        
-        String disableThermalGpuValue = getDisableThermalGpuValue();
-        binding.RvGPU.disablethermalgpuSwitch.setChecked(disableThermalChargingValue.equals("1"));
-    }
 
     private static String getSchedAutoGroupValue() {
         return executeCommandWithResult("cat /proc/sys/kernel/sched_autogroup_enabled");
@@ -69,10 +61,6 @@ public class RvSwitch {
 
     private static String getDisableThermalChargingValue() {
         return executeCommandWithResult("cat /sys/module/smb_lib/parameters/disable_thermal");
-    }
-        
-    private static String getDisableThermalGpuValue() {
-        return executeCommandWithResult("cat /sys/class/kgsl/kgsl-3d0/throttling");
     }
 
     private static String executeCommandWithResult(String command) {
@@ -111,10 +99,6 @@ public class RvSwitch {
     private static void changeDisableThermalCharging(String value) {
         executeCommand("echo " + value + " > /sys/module/smb_lib/parameters/disable_thermal");
     }
-        
-    private static void changeDisableThermalGpu(String value) {
-        executeCommand("echo " + value + " > /sys/class/kgsl/kgsl-3d0/throttling");
-    }    
 
     private static void executeCommand(String command) {
         Process process = null;

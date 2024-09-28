@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Switch;
 import androidx.appcompat.app.AlertDialog;
 
 import java.io.BufferedReader;
@@ -63,6 +64,47 @@ public class RvGpu {
             Process process =
                     Runtime.getRuntime()
                             .exec("su -c cat " + "/sys/class/kgsl/kgsl-3d0/devfreq/adrenoboost");
+            BufferedReader reader =
+                    new BufferedReader(new InputStreamReader(process.getInputStream()));
+            String line = reader.readLine();
+            if (line != null) {
+                return Integer.parseInt(line.trim());
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
+    
+    public void throttlingSwitch(Context context, Switch throttlingSwitch) {
+        int currentThrottlingValue = loadThrottlingFromFile();
+        throttlingSwitch.setChecked(currentThrottlingValue == 0);
+
+        throttlingSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            int value = isChecked ? 0 : 1;
+            setThrottling(value);
+        });
+    }
+    
+    private boolean setThrottling(int value) {
+        try {
+            Process process =
+                    Runtime.getRuntime()
+                            .exec(
+                                    "su -c echo " + value + " > " + "/sys/class/kgsl/kgsl-3d0/throttling");
+            process.waitFor();
+            return process.exitValue() == 0;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+    
+    private int loadThrottlingFromFile() {
+        try {
+            Process process =
+                    Runtime.getRuntime()
+                            .exec("su -c cat " + "/sys/class/kgsl/kgsl-3d0/throttling");
             BufferedReader reader =
                     new BufferedReader(new InputStreamReader(process.getInputStream()));
             String line = reader.readLine();

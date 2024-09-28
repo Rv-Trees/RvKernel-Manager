@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.provider.Settings;
 import android.widget.Button;
+import android.widget.Switch;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.imageview.ShapeableImageView;
 
@@ -66,8 +67,10 @@ public class RvMain extends AppCompatActivity {
         setupRvUI();
         
         Button btnSetAdrenoBoost = findViewById(R.id.btnSetAdrenoBoost);
+        Switch switchGpuThrottling = findViewById(R.id.switchGpuThrottling);
         RvGpu rvGpu = new RvGpu();
         rvGpu.showAdrenoBoostDialog(this, btnSetAdrenoBoost);
+        rvGpu.throttlingSwitch(this, switchGpuThrottling);
     }
 
     private void requestStoragePermission() {
