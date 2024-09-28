@@ -26,7 +26,7 @@ public class RvAdreno {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                        AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.RoundedDialog);
                         builder.setTitle("Adreno Boost");
 
                         builder.setItems(
