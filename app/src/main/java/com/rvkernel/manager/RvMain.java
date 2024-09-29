@@ -71,6 +71,7 @@ public class RvMain extends AppCompatActivity {
         Switch switchSchedAutoGroup = findViewById(R.id.switchSchedAutoGroup);
         Switch switchSchedChildRunFirst = findViewById(R.id.switchSchedChildRunFirst);
         Switch switchBypassCharging = findViewById(R.id.switchBypassCharging);
+        Switch switchFastCharging = findViewById(R.id.switchFastCharging);
         RvGpu rvGpu = new RvGpu();
         RvScheduler rvScheduler = new RvScheduler();
         RvCharging rvCharging = new RvCharging();
@@ -79,6 +80,7 @@ public class RvMain extends AppCompatActivity {
         rvScheduler.schedAutoGroupSwitch(this, switchSchedAutoGroup);
         rvScheduler.schedChildRunFirstSwitch(this, switchSchedChildRunFirst);
         rvCharging.bypassChargingSwitch(this, switchBypassCharging);
+        rvCharging.fastChargingSwitch(this, switchFastCharging);
     }
 
     private void requestStoragePermission() {

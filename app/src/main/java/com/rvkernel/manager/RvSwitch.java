@@ -12,24 +12,14 @@ public class RvSwitch {
     public static void RvSwitchLogic(RvmainBinding binding) {
         updateSwitchStates(binding);
 
-        binding.RvCharging.fastchargingSwitch.setOnCheckedChangeListener(
-                (buttonView, isChecked) -> changeFastCharging(isChecked ? "1" : "0"));
-
         binding.RvCharging.disablethermalchargingSwitch.setOnCheckedChangeListener(
                 (buttonView, isChecked) -> changeDisableThermalCharging(isChecked ? "1" : "0"));
     }
 
     private static void updateSwitchStates(RvmainBinding binding) {
 
-        String fastChargingValue = getFastChargingValue();
-        binding.RvCharging.fastchargingSwitch.setChecked(fastChargingValue.equals("1"));
-
         String disableThermalChargingValue = getDisableThermalChargingValue();
         binding.RvCharging.disablethermalchargingSwitch.setChecked(disableThermalChargingValue.equals("1"));
-    }
-
-    private static String getFastChargingValue() {
-        return executeCommandWithResult("cat /sys/kernel/fast_charge/force_fast_charge");
     }
 
     private static String getDisableThermalChargingValue() {
@@ -51,10 +41,6 @@ public class RvSwitch {
                 process.destroy();
             }
         }
-    }
-
-    private static void changeFastCharging(String value) {
-        executeCommand("echo " + value + " > /sys/kernel/fast_charge/force_fast_charge");
     }
 
     private static void changeDisableThermalCharging(String value) {

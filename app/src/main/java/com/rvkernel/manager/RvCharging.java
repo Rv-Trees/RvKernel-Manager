@@ -48,4 +48,45 @@ public class RvCharging {
         }
         return 0;
     }
+    
+    public void fastChargingSwitch(Context context, Switch fastChargingSwitch) {
+        int currentFastChargingValue = loadFastCharging();
+        fastChargingSwitch.setChecked(currentFastChargingValue == 1);
+
+        fastChargingSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            int value = isChecked ? 1 : 0;
+            setFastCharging(value);
+        });
+    }
+    
+    private boolean setFastCharging(int value) {
+        try {
+            Process process =
+                    Runtime.getRuntime()
+                            .exec(
+                                    "su -c echo " + value + " > " + "/sys/kernel/fast_charge/force_fast_charge");
+            process.waitFor();
+            return process.exitValue() == 0;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+    
+    private int loadFastCharging() {
+        try {
+            Process process =
+                    Runtime.getRuntime()
+                            .exec("su -c cat " + "/sys/kernel/fast_charge/force_fast_charge");
+            BufferedReader reader =
+                    new BufferedReader(new InputStreamReader(process.getInputStream()));
+            String line = reader.readLine();
+            if (line != null) {
+                return Integer.parseInt(line.trim());
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
 }

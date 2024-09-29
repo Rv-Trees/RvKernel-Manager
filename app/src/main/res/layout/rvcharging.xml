@@ -56,7 +56,7 @@
                 <Switch
                     android:layout_height="wrap_content"
                     android:layout_width="wrap_content"
-                    android:id="@+id/fastchargingSwitch"
+                    android:id="@+id/switchFastCharging"
                     android:thumb="@drawable/switch_foggy_thumb"
                     android:track="@drawable/switch_foggy_track" />
 
