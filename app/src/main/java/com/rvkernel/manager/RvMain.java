@@ -72,6 +72,7 @@ public class RvMain extends AppCompatActivity {
         Switch switchSchedChildRunFirst = findViewById(R.id.switchSchedChildRunFirst);
         Switch switchBypassCharging = findViewById(R.id.switchBypassCharging);
         Switch switchFastCharging = findViewById(R.id.switchFastCharging);
+        Switch switchDisableThermalCharging = findViewById(R.id.switchDisableThermalCharging);
         RvGpu rvGpu = new RvGpu();
         RvScheduler rvScheduler = new RvScheduler();
         RvCharging rvCharging = new RvCharging();
@@ -81,6 +82,7 @@ public class RvMain extends AppCompatActivity {
         rvScheduler.schedChildRunFirstSwitch(this, switchSchedChildRunFirst);
         rvCharging.bypassChargingSwitch(this, switchBypassCharging);
         rvCharging.fastChargingSwitch(this, switchFastCharging);
+        rvCharging.disableThermalChargingSwitch(this, switchDisableThermalCharging);
     }
 
     private void requestStoragePermission() {
@@ -134,8 +136,6 @@ public class RvMain extends AppCompatActivity {
     private void setupRvUI() {
         ShapeableImageView imageView = binding.RvKernelBanner.rvkernelBanner;
         RvBanner.RvBannerTheme(imageView, this);
-
-        RvSwitch.RvSwitchLogic(binding);
 
         binding.RvDeviceInfo.kernelVersion.setText(RvKernel.KernelVersion());
         binding.RvDeviceInfo.ramInfo.setText(RvRam.RamInfo());

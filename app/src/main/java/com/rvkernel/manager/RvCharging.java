@@ -89,4 +89,45 @@ public class RvCharging {
         }
         return 0;
     }
+    
+    public void disableThermalChargingSwitch(Context context, Switch disableThermalChargingSwitch) {
+        int currentDisableThermalChargingValue = loadDisableThermalCharging();
+        disableThermalChargingSwitch.setChecked(currentDisableThermalChargingValue == 1);
+
+        disableThermalChargingSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            int value = isChecked ? 1 : 0;
+            setDisableThermalCharging(value);
+        });
+    }
+    
+    private boolean setDisableThermalCharging(int value) {
+        try {
+            Process process =
+                    Runtime.getRuntime()
+                            .exec(
+                                    "su -c echo " + value + " > " + "/sys/module/smb_lib/parameters/disable_thermal");
+            process.waitFor();
+            return process.exitValue() == 0;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+    
+    private int loadDisableThermalCharging() {
+        try {
+            Process process =
+                    Runtime.getRuntime()
+                            .exec("su -c cat " + "/sys/module/smb_lib/parameters/disable_thermal");
+            BufferedReader reader =
+                    new BufferedReader(new InputStreamReader(process.getInputStream()));
+            String line = reader.readLine();
+            if (line != null) {
+                return Integer.parseInt(line.trim());
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
 }
