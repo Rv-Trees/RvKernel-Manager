@@ -12,9 +12,6 @@ public class RvSwitch {
     public static void RvSwitchLogic(RvmainBinding binding) {
         updateSwitchStates(binding);
 
-        binding.RvCharging.bypassSwitch.setOnCheckedChangeListener(
-                (buttonView, isChecked) -> changeInputSuspend(isChecked ? "1" : "0"));
-
         binding.RvCharging.fastchargingSwitch.setOnCheckedChangeListener(
                 (buttonView, isChecked) -> changeFastCharging(isChecked ? "1" : "0"));
 
@@ -24,18 +21,11 @@ public class RvSwitch {
 
     private static void updateSwitchStates(RvmainBinding binding) {
 
-        String inputSuspendValue = getInputSuspendValue();
-        binding.RvCharging.bypassSwitch.setChecked(inputSuspendValue.equals("1"));
-
         String fastChargingValue = getFastChargingValue();
         binding.RvCharging.fastchargingSwitch.setChecked(fastChargingValue.equals("1"));
 
         String disableThermalChargingValue = getDisableThermalChargingValue();
         binding.RvCharging.disablethermalchargingSwitch.setChecked(disableThermalChargingValue.equals("1"));
-    }
-
-    private static String getInputSuspendValue() {
-        return executeCommandWithResult("cat /sys/class/power_supply/battery/input_suspend");
     }
 
     private static String getFastChargingValue() {
@@ -61,10 +51,6 @@ public class RvSwitch {
                 process.destroy();
             }
         }
-    }
-
-    private static void changeInputSuspend(String value) {
-        executeCommand("echo " + value + " > /sys/class/power_supply/battery/input_suspend");
     }
 
     private static void changeFastCharging(String value) {

@@ -70,12 +70,15 @@ public class RvMain extends AppCompatActivity {
         Switch switchGpuThrottling = findViewById(R.id.switchGpuThrottling);
         Switch switchSchedAutoGroup = findViewById(R.id.switchSchedAutoGroup);
         Switch switchSchedChildRunFirst = findViewById(R.id.switchSchedChildRunFirst);
+        Switch switchBypassCharging = findViewById(R.id.switchBypassCharging);
         RvGpu rvGpu = new RvGpu();
         RvScheduler rvScheduler = new RvScheduler();
+        RvCharging rvCharging = new RvCharging();
         rvGpu.showAdrenoBoost(this, btnSetAdrenoBoost);
         rvGpu.throttlingSwitch(this, switchGpuThrottling);
         rvScheduler.schedAutoGroupSwitch(this, switchSchedAutoGroup);
         rvScheduler.schedChildRunFirstSwitch(this, switchSchedChildRunFirst);
+        rvCharging.bypassChargingSwitch(this, switchBypassCharging);
     }
 
     private void requestStoragePermission() {
