@@ -14,4 +14,12 @@
     <!-- GPU -->
     <string name="thermal_gpu">Disable Thermal GPU</string>
     <string name="adreno_boost">Adreno Boost</string>
+    
+    <!-- RvTuning -->
+    <string name="rvtuning_mode">Kernel Mode</string>
+    
+    <!-- Device Info -->
+    <string name="device_codename">Codename</string>
+    <string name="ram_info">RAM :</string>
+    <string name="kernel_version">Kernel :</string>
 </resources>

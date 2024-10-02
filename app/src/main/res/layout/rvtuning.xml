@@ -51,7 +51,7 @@
                     android:clickable="false"
                     android:textSize="18sp"
                     android:textColor="@color/textColorPrimary"
-                    android:text="Kernel Mode" />
+                    android:text="@string/rvtuning_mode" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/rvTuningButton"

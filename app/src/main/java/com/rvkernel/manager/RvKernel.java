@@ -51,21 +51,4 @@ public class RvKernel {
     private static void showContent(Activity activity) {
         activity.findViewById(android.R.id.content).setVisibility(View.VISIBLE);
     }
-    
-    public static String KernelVersion() {
-        Process process = null;
-        try {
-            process = Runtime.getRuntime().exec(new String[] {"su", "-c", "cat /proc/version"});
-
-            try (BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()))) {
-                return reader.readLine();
-            }
-        } catch (IOException e) {
-            return null;
-        } finally {
-            if (process != null) {
-                process.destroy();
-            }
-        }
-    }
 }
