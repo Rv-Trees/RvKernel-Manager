@@ -15,12 +15,12 @@ public class RvGpu {
     private static final String PREFS_NAME = "AdrenoBoostPrefs";
     private static final String KEY_ADRENO_MODE = "adreno_mode";
 
-    private String[] boostDescriptions = {"Off", "Low", "Medium", "High"};
+    private String[] boostTexts = {"Off", "Low", "Medium", "High"};
     private int[] boostValues = {0, 1, 2, 3};
 
     public void showAdrenoBoost(Context context, Button btnSetAdrenoBoost) {
         int currentMode = loadAdrenoBoost();
-        btnSetAdrenoBoost.setText(boostDescriptions[currentMode]);
+        btnSetAdrenoBoost.setText(boostTexts[currentMode]);
 
         btnSetAdrenoBoost.setOnClickListener(
                 new View.OnClickListener() {
@@ -30,12 +30,12 @@ public class RvGpu {
                         builder.setTitle("Adreno Boost");
 
                         builder.setItems(
-                                boostDescriptions,
+                                boostTexts,
                                 (dialog, which) -> {
                                     int selectedValue = boostValues[which];
 
                                     if (setAdrenoBoost(selectedValue)) {
-                                        btnSetAdrenoBoost.setText(boostDescriptions[which]);
+                                        btnSetAdrenoBoost.setText(boostTexts[which]);
                                     }
                                 });
 
