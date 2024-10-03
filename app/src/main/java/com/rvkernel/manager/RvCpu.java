@@ -1,5 +1,9 @@
 package com.rvkernel.manager;
 
+import android.content.Context;
+import android.widget.Button;
+import androidx.appcompat.app.AlertDialog;
+
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.IOException;
@@ -8,6 +12,27 @@ public class RvCpu {
 
     private String[] clockTexts;
     private int[] clockValues;
+
+    public void showMinCPUfreq(Context context, Button btnMinCPUfreq) {
+        loadClockValues();
+        int currentClock = loadMinCPUfreq();
+        btnMinCPUfreq.setText(getClockText(currentClock));
+        btnMinCPUfreq.setOnClickListener(
+                v -> {
+                        AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.RoundedDialog);
+                        builder.setTitle("Minimum CPU Frequency");
+                        builder.setItems(
+                                clockTexts,
+                                (dialog, which) -> {
+                                    int selectedValue = clockValues[which];
+
+                                    if (SetMinCPUfreq(selectedValue)) {
+                                        btnMinCPUfreq.setText(clockTexts[which]);
+                                    }
+                                });
+                        builder.show();
+                });
+    }
 
     private boolean SetMinCPUfreq(int value) {
         try {
