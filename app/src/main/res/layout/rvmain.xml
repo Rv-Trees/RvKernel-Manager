@@ -18,11 +18,15 @@
         <include
             android:id="@+id/RvScheduler"
             layout="@layout/rvscheduler" />
-        
+
         <include
             android:id="@+id/RvCharging"
             layout="@layout/rvcharging" />
-        
+
+        <include
+            android:id="@+id/RvLittleCPU"
+            layout="@layout/rvlittlecpu" />
+
         <include
             android:id="@+id/RvGPU"
             layout="@layout/rvgpu" />
