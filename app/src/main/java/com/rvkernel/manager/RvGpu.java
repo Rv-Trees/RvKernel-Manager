@@ -12,17 +12,14 @@ import java.io.IOException;
 
 public class RvGpu {
 
-    private static final String PREFS_NAME = "AdrenoBoostPrefs";
-    private static final String KEY_ADRENO_MODE = "adreno_mode";
-
     private String[] boostTexts = {"Off", "Low", "Medium", "High"};
     private int[] boostValues = {0, 1, 2, 3};
 
-    public void showAdrenoBoost(Context context, Button btnSetAdrenoBoost) {
-        int currentMode = loadAdrenoBoost();
-        btnSetAdrenoBoost.setText(boostTexts[currentMode]);
+    public void showAdrenoBoostMode(Context context, Button btnAdrenoBoostMode) {
+        int currentMode = loadAdrenoBoostMode();
+        btnAdrenoBoostMode.setText(boostTexts[currentMode]);
 
-        btnSetAdrenoBoost.setOnClickListener(
+        btnAdrenoBoostMode.setOnClickListener(
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -34,8 +31,8 @@ public class RvGpu {
                                 (dialog, which) -> {
                                     int selectedValue = boostValues[which];
 
-                                    if (setAdrenoBoost(selectedValue)) {
-                                        btnSetAdrenoBoost.setText(boostTexts[which]);
+                                    if (setAdrenoBoostMode(selectedValue)) {
+                                        btnAdrenoBoostMode.setText(boostTexts[which]);
                                     }
                                 });
 
@@ -44,7 +41,7 @@ public class RvGpu {
                 });
     }
 
-    private boolean setAdrenoBoost(int value) {
+    private boolean setAdrenoBoostMode(int value) {
         try {
             Process process =
                     Runtime.getRuntime()
@@ -58,7 +55,7 @@ public class RvGpu {
         }
     }
 
-    private int loadAdrenoBoost() {
+    private int loadAdrenoBoostMode() {
         try {
             Process process =
                     Runtime.getRuntime()
