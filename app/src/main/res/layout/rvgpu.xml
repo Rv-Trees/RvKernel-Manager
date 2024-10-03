@@ -109,7 +109,7 @@
                     android:clickable="false"
                     android:textSize="18sp"
                     android:textColor="@color/textColorPrimary"
-                    android:text="@string/min_gpu_freq" />
+                    android:text="@string/min_freq" />
 
                 <com.google.android.material.button.MaterialButton
                     app:backgroundTint="@color/colorContainerOverlay"
@@ -140,7 +140,7 @@
                     android:clickable="false"
                     android:textSize="18sp"
                     android:textColor="@color/textColorPrimary"
-                    android:text="@string/max_gpu_freq" />
+                    android:text="@string/max_freq" />
 
                 <com.google.android.material.button.MaterialButton
                     app:backgroundTint="@color/colorContainerOverlay"

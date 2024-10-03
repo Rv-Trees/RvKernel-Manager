@@ -52,7 +52,7 @@
                     android:clickable="false"
                     android:textSize="18sp"
                     android:textColor="@color/textColorPrimary"
-                    android:text="@string/min_cpu0_freq" />
+                    android:text="@string/min_freq" />
 
                 <com.google.android.material.button.MaterialButton
                     app:backgroundTint="@color/colorContainerOverlay"
