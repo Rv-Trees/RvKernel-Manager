@@ -28,7 +28,7 @@ public class RvMain extends AppCompatActivity {
             "4.9.337-RvKernel-Be4-v0.6"
     };
 
-    private MaterialButton rvTuningButton;
+    private MaterialButton btnRvTuning;
 
     private final ActivityResultLauncher<String[]> requestPermissionLauncher =
             registerForActivityResult(
@@ -94,9 +94,9 @@ public class RvMain extends AppCompatActivity {
         rvGpu.gpuThrottlingSwitch(this, gpuThrottlingSwitch);
         
         // RvTuning
-        rvTuningButton = findViewById(R.id.rvTuningButton);
-        RvTuning rvTuning = new RvTuning(this, rvTuningButton);
-        rvTuning.initRvTuningButton();
+        btnRvTuning = findViewById(R.id.rvTuningButton);
+        RvTuning rvTuning = new RvTuning(this, btnRvTuning);
+        rvTuning.initBtnRvTuning();
 
         // Device Info
         TextView deviceCodename = findViewById(R.id.deviceCodename);

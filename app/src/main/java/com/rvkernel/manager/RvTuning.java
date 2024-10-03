@@ -15,43 +15,43 @@ import java.io.File;
 public class RvTuning {
 
     private final Context context;
-    private final Button rvTuningButton;
+    private final Button btnRvTuning;
     private final Handler mainHandler = new Handler(Looper.getMainLooper());
 
-    public RvTuning(Context context, Button rvTuningButton) {
+    public RvTuning(Context context, Button btnRvTuning) {
         this.context = context;
-        this.rvTuningButton = rvTuningButton;
-        initRvTuningButton();
-        updateButtonWithSavedMode();
+        this.btnRvTuning = btnRvTuning;
+        initBtnRvTuning();
+        updateRvTuningMode();
     }
 
-    public void initRvTuningButton() {
-        if (rvTuningButton != null) {
-            rvTuningButton.setOnClickListener(v -> showRvTuningModeDialog());
+    public void initBtnRvTuning() {
+        if (btnRvTuning != null) {
+            btnRvTuning.setOnClickListener(v -> showRvTuningMode());
         }
     }
 
-    private void showRvTuningModeDialog() {
+    private void showRvTuningMode() {
         String[] modes = {"Battery", "Balance", "Gaming", "Performance"};
 
         new AlertDialog.Builder(context, R.style.RoundedDialog)
                 .setTitle("Select Mode")
                 .setItems(modes, (dialog, which) -> {
                     String selectedMode = modes[which];
-                    rvTuningButton.setText(selectedMode);
-                    saveSelectedMode(selectedMode);
-                    executeShellScript(getRvTuningScript(selectedMode));
+                    btnRvTuning.setText(selectedMode);
+                    saveRvTuningMode(selectedMode);
+                    executeShellScript(getRvTuningMode(selectedMode));
                 })
                 .show();
     }
 
-    private String getRvTuningScript(String mode) {
+    private String getRvTuningMode(String mode) {
         return mode.toLowerCase() + ".sh";
     }
 
-    private void updateButtonWithSavedMode() {
-        String savedMode = loadSelectedMode();
-        rvTuningButton.setText(savedMode);
+    private void updateRvTuningMode() {
+        String savedMode = loadRvTuningMode();
+        btnRvTuning.setText(savedMode);
     }
 
     private void executeShellScript(String script) {
@@ -59,7 +59,7 @@ public class RvTuning {
                 "RvKernel Manager/RvTuning/" + script);
         
         if (!scriptFile.exists()) {
-            showAlertDialog("Script Not Found", "The script " + script + " does not exist.");
+            showAlert("Script Not Found", "The script " + script + " does not exist.");
             return;
         }
 
@@ -74,17 +74,17 @@ public class RvTuning {
 
                 process.waitFor();
                 if (process.exitValue() != 0) {
-                    showAlertDialog("Execution Failed", "Error executing the script.");
+                    showAlert("Failed", "Error executing the script.");
                 } else {
-                    mainHandler.post(this::updateButtonWithSavedMode);
+                    mainHandler.post(this::updateRvTuningMode);
                 }
             } catch (Exception e) {
-                showAlertDialog("Error", e.getMessage());
+                showAlert("Error", e.getMessage());
             }
         }).start();
     }
 
-    private void showAlertDialog(String title, String message) {
+    private void showAlert(String title, String message) {
         mainHandler.post(() -> 
             new AlertDialog.Builder(context, R.style.RoundedDialog)
                     .setTitle(title)
@@ -94,13 +94,13 @@ public class RvTuning {
         );
     }
 
-    private void saveSelectedMode(String mode) {
-        SharedPreferences sharedPreferences = context.getSharedPreferences("RvKernelPrefs", Context.MODE_PRIVATE);
+    private void saveRvTuningMode(String mode) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences("RvTuningPrefs", Context.MODE_PRIVATE);
         sharedPreferences.edit().putString("selected_mode", mode).apply();
     }
 
-    private String loadSelectedMode() {
-        SharedPreferences sharedPreferences = context.getSharedPreferences("RvKernelPrefs", Context.MODE_PRIVATE);
+    private String loadRvTuningMode() {
+        SharedPreferences sharedPreferences = context.getSharedPreferences("RvTuningPrefs", Context.MODE_PRIVATE);
         return sharedPreferences.getString("selected_mode", "Select Mode");
     }
 }
