@@ -8,16 +8,16 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.IOException;
 
-public class RvCpu {
+public class RvLittleCPU {
 
     private String[] clockTexts;
     private int[] clockValues;
 
-    public void showMinCPUfreq(Context context, Button btnMinCPUfreq) {
+    public void showMinCPU0freq(Context context, Button btnMinCPU0freq) {
         loadClockValues();
-        int currentClock = loadMinCPUfreq();
-        btnMinCPUfreq.setText(getClockText(currentClock));
-        btnMinCPUfreq.setOnClickListener(
+        int currentClock = loadMinCPU0freq();
+        btnMinCPU0freq.setText(getClockText(currentClock));
+        btnMinCPU0freq.setOnClickListener(
                 v -> {
                         AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.RoundedDialog);
                         builder.setTitle("Minimum CPU Frequency");
@@ -26,15 +26,15 @@ public class RvCpu {
                                 (dialog, which) -> {
                                     int selectedValue = clockValues[which];
 
-                                    if (SetMinCPUfreq(selectedValue)) {
-                                        btnMinCPUfreq.setText(clockTexts[which]);
+                                    if (SetMinCPU0freq(selectedValue)) {
+                                        btnMinCPU0freq.setText(clockTexts[which]);
                                     }
                                 });
                         builder.show();
                 });
     }
 
-    private boolean SetMinCPUfreq(int value) {
+    private boolean SetMinCPU0freq(int value) {
         try {
             Process process =
                     Runtime.getRuntime()
@@ -48,7 +48,7 @@ public class RvCpu {
         }
     }
 
-    private int loadMinCPUfreq() {
+    private int loadMinCPU0freq() {
         try {
             Process process =
                     Runtime.getRuntime()

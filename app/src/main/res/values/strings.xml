@@ -13,9 +13,9 @@
     <string name="force_fast_charge">Fast Charging</string>
     <string name="disable_thermal">Disable Thermal Charging</string>
 
-    <!-- CPU -->
-    <string name="cpu_title">CPU</string>
-    <string name="min_cpu_freq">Minimum CPU Freq</string>
+    <!-- Little Cluster CPU -->
+    <string name="cpu0_title">Little Cluster CPU</string>
+    <string name="min_cpu0_freq">Minimum Frequency</string>
 
     <!-- GPU -->
     <string name="gpu_title">GPU</string>
