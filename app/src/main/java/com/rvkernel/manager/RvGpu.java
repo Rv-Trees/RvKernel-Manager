@@ -23,13 +23,11 @@ public class RvGpu {
     public void showAdrenoBoostMode(Context context, Button btnAdrenoBoostMode) {
         int currentMode = loadAdrenoBoostMode();
         btnAdrenoBoostMode.setText(boostTexts[currentMode]);
-
         btnAdrenoBoostMode.setOnClickListener(
                 v -> {
                     AlertDialog.Builder builder =
                             new AlertDialog.Builder(context, R.style.RoundedDialog);
                     builder.setTitle("Adreno Boost");
-
                     builder.setItems(
                             boostTexts,
                             (dialog, which) -> {
@@ -37,11 +35,8 @@ public class RvGpu {
 
                                 if (setAdrenoBoostMode(selectedValue)) {
                                     btnAdrenoBoostMode.setText(boostTexts[which]);
-                                } else {
-                                    btnAdrenoBoostMode.setText("error");
                                 }
                             });
-
                     builder.show();
                 });
     }
@@ -81,7 +76,7 @@ public class RvGpu {
     private Handler handler = new Handler(Looper.getMainLooper());
     private Runnable updateAdrenoBoostModeRT;
 
-    public void startAdrenoBoostPolling(final Button btnAdrenoBoostMode) {
+    public void startUpdateAdrenoBoost(final Button btnAdrenoBoostMode) {
         updateAdrenoBoostModeRT =
                 new Runnable() {
                     @Override
@@ -97,7 +92,7 @@ public class RvGpu {
         handler.post(updateAdrenoBoostModeRT);
     }
 
-    public void stopAdrenoBoostPolling() {
+    public void stopUpdateAdrenoBoost() {
         if (handler != null && updateAdrenoBoostModeRT != null) {
             handler.removeCallbacks(updateAdrenoBoostModeRT);
         }
