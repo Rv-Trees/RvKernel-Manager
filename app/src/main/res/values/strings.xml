@@ -3,24 +3,29 @@
     <string name="app_name">RvKernel Manager</string>
 
     <!-- Scheduler -->
+    <string name="scheduler_title">Scheduler</string>
     <string name="sched_autogroup_enabled">Auto Task Groups</string>
     <string name="sched_child_runs_first">Optimize Child Process</string>
 
     <!-- Charging -->
+    <string name="charging_title">Charging</string>
     <string name="input_suspend">Bypass Charging</string>
     <string name="force_fast_charge">Fast Charging</string>
     <string name="disable_thermal">Disable Thermal Charging</string>
 
     <!-- GPU -->
+    <string name="gpu_title">GPU</string>
     <string name="thermal_gpu">Disable Thermal GPU</string>
     <string name="adreno_boost">Adreno Boost</string>
     <string name="min_gpu_freq">Minimum GPU Freq</string>
     <string name="max_gpu_freq">Maximum GPU Freq</string>
     
     <!-- RvTuning -->
+    <string name="rvtuning_title">RvTuning</string>
     <string name="rvtuning_mode">Kernel Mode</string>
     
-    <!-- Device Info -->
+    <!-- Info -->
+    <string name="info_title">Info</string>
     <string name="device_codename">Codename</string>
     <string name="ram_info">RAM :</string>
     <string name="kernel_version">Kernel :</string>
