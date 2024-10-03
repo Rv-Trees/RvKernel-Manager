@@ -13,16 +13,17 @@
     <string name="force_fast_charge">Fast Charging</string>
     <string name="disable_thermal">Disable Thermal Charging</string>
 
-    <!-- Little Cluster CPU -->
+    <!-- Frequency -->
+    <string name="min_freq">Minimum Frequency</string>
+    <string name="max_freq">Maximum Frequency</string>
+
+    <!-- CPU -->
     <string name="cpu0_title">Little Cluster CPU</string>
-    <string name="min_cpu0_freq">Minimum Frequency</string>
 
     <!-- GPU -->
     <string name="gpu_title">GPU</string>
     <string name="thermal_gpu">Disable Thermal GPU</string>
     <string name="adreno_boost">Adreno Boost</string>
-    <string name="min_gpu_freq">Minimum GPU Freq</string>
-    <string name="max_gpu_freq">Maximum GPU Freq</string>
     
     <!-- RvTuning -->
     <string name="rvtuning_title">RvTuning</string>
