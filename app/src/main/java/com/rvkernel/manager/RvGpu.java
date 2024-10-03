@@ -141,17 +141,12 @@ public class RvGpu {
 
     public void showMinGPUfreq(Context context, Button btnMinGPUfreq) {
         loadClockValues();
-
         int currentClock = loadMinGPUfreq();
         btnMinGPUfreq.setText(getClockText(currentClock));
-
         btnMinGPUfreq.setOnClickListener(
-                new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
+                v -> {
                         AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.RoundedDialog);
                         builder.setTitle("Minimum GPU Frequency");
-
                         builder.setItems(
                                 clockTexts,
                                 (dialog, which) -> {
@@ -161,9 +156,7 @@ public class RvGpu {
                                         btnMinGPUfreq.setText(clockTexts[which]);
                                     }
                                 });
-
                         builder.show();
-                    }
                 });
     }
 
