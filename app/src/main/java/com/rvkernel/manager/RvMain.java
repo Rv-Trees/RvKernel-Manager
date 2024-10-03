@@ -160,13 +160,13 @@ public class RvMain extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        rvGpu.startAdrenoBoostPolling(btnAdrenoBoostMode);
+        rvGpu.startUpdateAdrenoBoost(btnAdrenoBoostMode);
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        rvGpu.stopAdrenoBoostPolling();
+        rvGpu.stopUpdateAdrenoBoost();
     }
 
     @Override
