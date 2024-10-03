@@ -14,6 +14,7 @@
     <!-- GPU -->
     <string name="thermal_gpu">Disable Thermal GPU</string>
     <string name="adreno_boost">Adreno Boost</string>
+    <string name="min_gpu_freq">Minimum GPU Freq</string>
     
     <!-- RvTuning -->
     <string name="rvtuning_mode">Kernel Mode</string>

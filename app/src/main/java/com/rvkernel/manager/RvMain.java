@@ -90,10 +90,12 @@ public class RvMain extends AppCompatActivity {
         rvCharging.disableThermalChargingSwitch(this, switchDisableThermalCharging);
 
         // GPU
+        MaterialButton btnMinGPUfreq = findViewById(R.id.btnMinGPUfreq);
         btnAdrenoBoostMode = findViewById(R.id.btnAdrenoBoostMode);
         Switch gpuThrottlingSwitch = findViewById(R.id.gpuThrottlingSwitch);
 
         rvGpu = new RvGpu();
+        rvGpu.showMinGPUfreq(this, btnMinGPUfreq);
         rvGpu.showAdrenoBoostMode(this, btnAdrenoBoostMode);
         rvGpu.gpuThrottlingSwitch(this, gpuThrottlingSwitch);
         
