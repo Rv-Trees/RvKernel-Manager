@@ -4,6 +4,8 @@ import android.content.Context;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Switch;
+import android.os.Handler;
+import android.os.Looper;
 import androidx.appcompat.app.AlertDialog;
 
 import java.io.BufferedReader;
@@ -20,24 +22,24 @@ public class RvGpu {
         btnAdrenoBoostMode.setText(boostTexts[currentMode]);
 
         btnAdrenoBoostMode.setOnClickListener(
-                new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.RoundedDialog);
-                        builder.setTitle("Adreno Boost");
+                v -> {
+                    AlertDialog.Builder builder =
+                            new AlertDialog.Builder(context, R.style.RoundedDialog);
+                    builder.setTitle("Adreno Boost");
 
-                        builder.setItems(
-                                boostTexts,
-                                (dialog, which) -> {
-                                    int selectedValue = boostValues[which];
+                    builder.setItems(
+                            boostTexts,
+                            (dialog, which) -> {
+                                int selectedValue = boostValues[which];
 
-                                    if (setAdrenoBoostMode(selectedValue)) {
-                                        btnAdrenoBoostMode.setText(boostTexts[which]);
-                                    }
-                                });
+                                if (setAdrenoBoostMode(selectedValue)) {
+                                    btnAdrenoBoostMode.setText(boostTexts[which]);
+                                } else {
+                                    btnAdrenoBoostMode.setText("error");
+                                }
+                            });
 
-                        builder.show();
-                    }
+                    builder.show();
                 });
     }
 
@@ -48,6 +50,7 @@ public class RvGpu {
                             .exec(
                                     "su -c echo " + value + " > " + "/sys/class/kgsl/kgsl-3d0/devfreq/adrenoboost");
             process.waitFor();
+
             return process.exitValue() == 0;
         } catch (Exception e) {
             e.printStackTrace();
@@ -72,6 +75,31 @@ public class RvGpu {
         return 0;
     }
     
+    private Handler handler = new Handler(Looper.getMainLooper());
+    private Runnable updateAdrenoBoostModeRT;
+
+    public void startAdrenoBoostPolling(final Button btnAdrenoBoostMode) {
+        updateAdrenoBoostModeRT =
+                new Runnable() {
+                    @Override
+                    public void run() {
+                        int currentAdrenoBoostMode = loadAdrenoBoostMode();
+                        btnAdrenoBoostMode.setText(
+                                boostTexts[
+                                        currentAdrenoBoostMode]);
+                        handler.postDelayed(this, 1000);
+                    }
+                };
+
+        handler.post(updateAdrenoBoostModeRT);
+    }
+
+    public void stopAdrenoBoostPolling() {
+        if (handler != null && updateAdrenoBoostModeRT != null) {
+            handler.removeCallbacks(updateAdrenoBoostModeRT);
+        }
+    }
+
     public void gpuThrottlingSwitch(Context context, Switch gpuThrottlingSwitch) {
         int currentGpuThrottlingValue = loadGpuThrottlingValue();
         gpuThrottlingSwitch.setChecked(currentGpuThrottlingValue == 0);
@@ -81,7 +109,7 @@ public class RvGpu {
             setGpuThrottlingValue(value);
         });
     }
-    
+
     private boolean setGpuThrottlingValue(int value) {
         try {
             Process process =

@@ -28,6 +28,11 @@ public class RvMain extends AppCompatActivity {
             "4.9.337-RvKernel-Be4-v0.6"
     };
 
+    // GPU
+    private RvGpu rvGpu;
+    private MaterialButton btnAdrenoBoostMode;
+
+    // RvTuning
     private MaterialButton btnRvTuning;
 
     private final ActivityResultLauncher<String[]> requestPermissionLauncher =
@@ -85,11 +90,10 @@ public class RvMain extends AppCompatActivity {
         rvCharging.disableThermalChargingSwitch(this, switchDisableThermalCharging);
 
         // GPU
-        MaterialButton btnAdrenoBoostMode = findViewById(R.id.btnAdrenoBoostMode);
+        btnAdrenoBoostMode = findViewById(R.id.btnAdrenoBoostMode);
         Switch gpuThrottlingSwitch = findViewById(R.id.gpuThrottlingSwitch);
-        
-        RvGpu rvGpu = new RvGpu();
-        
+
+        rvGpu = new RvGpu();
         rvGpu.showAdrenoBoostMode(this, btnAdrenoBoostMode);
         rvGpu.gpuThrottlingSwitch(this, gpuThrottlingSwitch);
         
@@ -147,6 +151,18 @@ public class RvMain extends AppCompatActivity {
                 .setPositiveButton("OK", null)
                 .create()
                 .show();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        rvGpu.startAdrenoBoostPolling(btnAdrenoBoostMode);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        rvGpu.stopAdrenoBoostPolling();
     }
 
     @Override
