@@ -9,6 +9,20 @@ public class RvCpu {
     private String[] clockTexts;
     private int[] clockValues;
 
+    private boolean SetMinCPUfreq(int value) {
+        try {
+            Process process =
+                    Runtime.getRuntime()
+                            .exec(
+                                    "su -c echo " + value + " > " + "/sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq");
+            process.waitFor();
+            return process.exitValue() == 0;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
     private int loadMinCPUfreq() {
         try {
             Process process =
