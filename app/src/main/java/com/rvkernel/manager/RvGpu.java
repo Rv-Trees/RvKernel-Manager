@@ -19,6 +19,7 @@ public class RvGpu {
     private Handler handler = new Handler(Looper.getMainLooper());
     private Runnable updateAdrenoBoostModeRT;
     private Runnable updateMinGPUfreqRT;
+    private Runnable updateMaxGPUfreqRT;
 
     private String[] boostTexts = {"Off", "Low", "Medium", "High"};
     private int[] boostValues = {0, 1, 2, 3};
@@ -266,6 +267,28 @@ public class RvGpu {
             e.printStackTrace();
         }
         return clockValues[0];
+    }
+
+    private void updateMaxGPUfreq(Button btnMaxGPUfreq) {
+        int currentMaxGPUfreq = loadMaxGPUfreq();
+        btnMaxGPUfreq.setText(getClockText(currentMaxGPUfreq));
+    }
+
+    public void startUpdateMaxGPUfreq(Button btnMaxGPUfreq) {
+        updateMaxGPUfreqRT =
+                new Runnable() {
+                    @Override
+                    public void run() {
+                        updateMaxGPUfreq(btnMaxGPUfreq);
+                        handler.postDelayed(this, UPDATE_INTERVAL);
+                    }
+                };
+
+        handler.post(updateMaxGPUfreqRT);
+    }
+
+    public void stopUpdateMaxGPUfreq() {
+        handler.removeCallbacks(updateMaxGPUfreqRT);
     }
 
     private void loadClockValues() {
