@@ -72,17 +72,17 @@ public class RvGpu {
         return 0;
     }
     
-    public void throttlingSwitch(Context context, Switch throttlingSwitch) {
-        int currentThrottlingValue = loadThrottling();
-        throttlingSwitch.setChecked(currentThrottlingValue == 0);
+    public void gpuThrottlingSwitch(Context context, Switch gpuThrottlingSwitch) {
+        int currentGpuThrottlingValue = loadGpuThrottlingValue();
+        gpuThrottlingSwitch.setChecked(currentGpuThrottlingValue == 0);
 
-        throttlingSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
+        gpuThrottlingSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
             int value = isChecked ? 0 : 1;
-            setThrottling(value);
+            setGpuThrottlingValue(value);
         });
     }
     
-    private boolean setThrottling(int value) {
+    private boolean setGpuThrottlingValue(int value) {
         try {
             Process process =
                     Runtime.getRuntime()
@@ -96,7 +96,7 @@ public class RvGpu {
         }
     }
     
-    private int loadThrottling() {
+    private int loadGpuThrottlingValue() {
         try {
             Process process =
                     Runtime.getRuntime()
