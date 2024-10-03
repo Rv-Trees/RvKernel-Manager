@@ -14,6 +14,12 @@ import java.io.IOException;
 
 public class RvGpu {
 
+    private static final int UPDATE_INTERVAL = 1000;
+
+    private Handler handler = new Handler(Looper.getMainLooper());
+    private Runnable updateAdrenoBoostModeRT;
+    private Runnable updateMinGPUfreqRT;
+
     private String[] boostTexts = {"Off", "Low", "Medium", "High"};
     private int[] boostValues = {0, 1, 2, 3};
 
@@ -72,9 +78,6 @@ public class RvGpu {
         }
         return 0;
     }
-    
-    private Handler handler = new Handler(Looper.getMainLooper());
-    private Runnable updateAdrenoBoostModeRT;
 
     public void startUpdateAdrenoBoost(final Button btnAdrenoBoostMode) {
         updateAdrenoBoostModeRT =
@@ -85,7 +88,7 @@ public class RvGpu {
                         btnAdrenoBoostMode.setText(
                                 boostTexts[
                                         currentAdrenoBoostMode]);
-                        handler.postDelayed(this, 1000);
+                        handler.postDelayed(this, UPDATE_INTERVAL);
                     }
                 };
 
@@ -189,6 +192,28 @@ public class RvGpu {
             e.printStackTrace();
         }
         return clockValues[0];
+    }
+
+    private void updateMinGPUfreq(Button btnMinGPUfreq) {
+        int currentMinGPUfreq = loadMinGPUfreq();
+        btnMinGPUfreq.setText(getClockText(currentMinGPUfreq));
+    }
+
+    public void startUpdateMinGPUfreq(Button btnMinGPUfreq) {
+        updateMinGPUfreqRT =
+                new Runnable() {
+                    @Override
+                    public void run() {
+                        updateMinGPUfreq(btnMinGPUfreq);
+                        handler.postDelayed(this, UPDATE_INTERVAL);
+                    }
+                };
+
+        handler.post(updateMinGPUfreqRT);
+    }
+
+    public void stopUpdateMinGPUfreq() {
+        handler.removeCallbacks(updateMinGPUfreqRT);
     }
 
     public void showMaxGPUfreq(Context context, Button btnMaxGPUfreq) {

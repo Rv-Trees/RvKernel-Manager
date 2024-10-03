@@ -31,6 +31,7 @@ public class RvMain extends AppCompatActivity {
     // GPU
     private RvGpu rvGpu;
     private MaterialButton btnAdrenoBoostMode;
+    private MaterialButton btnMinGPUfreq;
 
     // RvTuning
     private MaterialButton btnRvTuning;
@@ -90,7 +91,7 @@ public class RvMain extends AppCompatActivity {
         rvCharging.disableThermalChargingSwitch(this, switchDisableThermalCharging);
 
         // GPU
-        MaterialButton btnMinGPUfreq = findViewById(R.id.btnMinGPUfreq);
+        btnMinGPUfreq = findViewById(R.id.btnMinGPUfreq);
         MaterialButton btnMaxGPUfreq = findViewById(R.id.btnMaxGPUfreq);
         btnAdrenoBoostMode = findViewById(R.id.btnAdrenoBoostMode);
         Switch gpuThrottlingSwitch = findViewById(R.id.gpuThrottlingSwitch);
@@ -161,12 +162,14 @@ public class RvMain extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         rvGpu.startUpdateAdrenoBoost(btnAdrenoBoostMode);
+        rvGpu.startUpdateMinGPUfreq(btnMinGPUfreq);
     }
 
     @Override
     protected void onPause() {
         super.onPause();
         rvGpu.stopUpdateAdrenoBoost();
+        rvGpu.stopUpdateMinGPUfreq();
     }
 
     @Override
