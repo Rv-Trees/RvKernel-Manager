@@ -91,6 +91,12 @@ public class RvMain extends AppCompatActivity {
         rvCharging.fastChargingSwitch(this, switchFastCharging);
         rvCharging.disableThermalChargingSwitch(this, switchDisableThermalCharging);
 
+        // CPU
+        MaterialButton btnMinCPUfreq = findViewById(R.id.btnMinCPUfreq);
+
+        RvCpu rvCpu = new RvCpu();
+        rvCpu.showMinCPUfreq(this, btnMinCPUfreq);
+
         // GPU
         btnMinGPUfreq = findViewById(R.id.btnMinGPUfreq);
         btnMaxGPUfreq = findViewById(R.id.btnMaxGPUfreq);
