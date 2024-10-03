@@ -5,7 +5,7 @@ plugins {
 
 android {
     namespace 'com.rvkernel.manager'
-    compileSdk 33
+    compileSdk 34
     
     defaultConfig {
         applicationId "com.rvkernel.manager"
