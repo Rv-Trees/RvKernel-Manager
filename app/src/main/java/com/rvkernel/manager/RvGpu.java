@@ -218,17 +218,12 @@ public class RvGpu {
 
     public void showMaxGPUfreq(Context context, Button btnMaxGPUfreq) {
         loadClockValues();
-
-        int currentClock = loadMaxGPUfreq();
+        int currentClock = loadMinGPUfreq();
         btnMaxGPUfreq.setText(getClockText(currentClock));
-
         btnMaxGPUfreq.setOnClickListener(
-                new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
+                v -> {
                         AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.RoundedDialog);
                         builder.setTitle("Maximum GPU Frequency");
-
                         builder.setItems(
                                 clockTexts,
                                 (dialog, which) -> {
@@ -238,9 +233,7 @@ public class RvGpu {
                                         btnMaxGPUfreq.setText(clockTexts[which]);
                                     }
                                 });
-
                         builder.show();
-                    }
                 });
     }
 
