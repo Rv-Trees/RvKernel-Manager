@@ -91,11 +91,13 @@ public class RvMain extends AppCompatActivity {
 
         // GPU
         MaterialButton btnMinGPUfreq = findViewById(R.id.btnMinGPUfreq);
+        MaterialButton btnMaxGPUfreq = findViewById(R.id.btnMaxGPUfreq);
         btnAdrenoBoostMode = findViewById(R.id.btnAdrenoBoostMode);
         Switch gpuThrottlingSwitch = findViewById(R.id.gpuThrottlingSwitch);
 
         rvGpu = new RvGpu();
         rvGpu.showMinGPUfreq(this, btnMinGPUfreq);
+        rvGpu.showMaxGPUfreq(this, btnMaxGPUfreq);
         rvGpu.showAdrenoBoostMode(this, btnAdrenoBoostMode);
         rvGpu.gpuThrottlingSwitch(this, gpuThrottlingSwitch);
         
