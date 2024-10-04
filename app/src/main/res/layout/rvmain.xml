@@ -28,6 +28,10 @@
             layout="@layout/rvlittlecpu" />
 
         <include
+            android:id="@+id/RvBigCPU"
+            layout="@layout/rvbigcpu" />
+
+        <include
             android:id="@+id/RvGPU"
             layout="@layout/rvgpu" />
 
