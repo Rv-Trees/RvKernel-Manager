@@ -40,6 +40,11 @@ public class RvMain extends AppCompatActivity {
     private MaterialButton btnMinCPU0freq;
     private MaterialButton btnMaxCPU0freq;
 
+    // Big Cluster CPU
+    private RvBigCPU rvBigCPU;
+    private MaterialButton btnMinCPU4freq;
+    private MaterialButton btnMaxCPU4freq;
+
     // GPU
     private RvGpu rvGpu;
     private MaterialButton btnAdrenoBoostMode;
@@ -115,10 +120,10 @@ public class RvMain extends AppCompatActivity {
         rvLittleCPU.showMaxCPU0freq(this, btnMaxCPU0freq);
 
         // Big Cluster CPU
-        MaterialButton btnMinCPU4freq = findViewById(R.id.btnMinCPU4freq);
-        MaterialButton btnMaxCPU4freq = findViewById(R.id.btnMaxCPU4freq);
+        btnMinCPU4freq = findViewById(R.id.btnMinCPU4freq);
+        btnMaxCPU4freq = findViewById(R.id.btnMaxCPU4freq);
 
-        RvBigCPU rvBigCPU = new RvBigCPU();
+        rvBigCPU = new RvBigCPU();
         rvBigCPU.showMinCPU4freq(this, btnMinCPU4freq);
         rvBigCPU.showMaxCPU4freq(this, btnMaxCPU4freq);
 
