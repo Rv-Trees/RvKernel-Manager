@@ -230,5 +230,9 @@ public class RvMain extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+
+        if (executor != null && !executor.isShutdown()) {
+            executor.shutdown();
+        }
     }
 }
