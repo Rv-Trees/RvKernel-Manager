@@ -99,6 +99,14 @@ public class RvMain extends AppCompatActivity {
         rvLittleCPU.showMinCPU0freq(this, btnMinCPU0freq);
         rvLittleCPU.showMaxCPU0freq(this, btnMaxCPU0freq);
 
+        // Big Cluster CPU
+        MaterialButton btnMinCPU4freq = findViewById(R.id.btnMinCPU4freq);
+        MaterialButton btnMaxCPU4freq = findViewById(R.id.btnMaxCPU4freq);
+
+        RvBigCPU rvBigCPU = new RvBigCPU();
+        rvBigCPU.showMinCPU4freq(this, btnMinCPU4freq);
+        rvBigCPU.showMaxCPU4freq(this, btnMaxCPU4freq);
+
         // GPU
         btnMinGPUfreq = findViewById(R.id.btnMinGPUfreq);
         btnMaxGPUfreq = findViewById(R.id.btnMaxGPUfreq);
