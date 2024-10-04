@@ -65,6 +65,27 @@ public class RvLittleCPU {
         return clockValues[0];
     }
 
+    public void showMaxCPU0freq(Context context, Button btnMaxCPU0freq) {
+        loadClockValues();
+        int currentClock = loadMaxCPU0freq();
+        btnMaxCPU0freq.setText(getClockText(currentClock));
+        btnMaxCPU0freq.setOnClickListener(
+                v -> {
+                        AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.RoundedDialog);
+                        builder.setTitle("Maximum CPU Frequency");
+                        builder.setItems(
+                                clockTexts,
+                                (dialog, which) -> {
+                                    int selectedValue = clockValues[which];
+
+                                    if (SetMaxCPU0freq(selectedValue)) {
+                                        btnMaxCPU0freq.setText(clockTexts[which]);
+                                    }
+                                });
+                        builder.show();
+                });
+    }
+
     private boolean SetMaxCPU0freq(int value) {
         try {
             Process process =
