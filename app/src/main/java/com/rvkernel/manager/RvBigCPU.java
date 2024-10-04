@@ -39,6 +39,19 @@ public class RvBigCPU {
         return clockValues[0];
     }
 
+    private boolean SetMaxCPU4freq(int value) {
+        try {
+            Process process =
+                    Runtime.getRuntime()
+                            .exec("su -c echo " + value + " > " + "/sys/devices/system/cpu/cpu4/cpufreq/scaling_max_freq");
+            process.waitFor();
+            return process.exitValue() == 0;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
     private int loadMaxCPU4freq() {
         try {
             Process process =
