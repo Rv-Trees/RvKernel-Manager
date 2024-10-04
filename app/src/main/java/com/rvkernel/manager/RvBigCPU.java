@@ -9,6 +9,23 @@ public class RvBigCPU {
     private String[] clockTexts;
     private int[] clockValues;
 
+    private int loadMinCPU4freq() {
+        try {
+            Process process =
+                    Runtime.getRuntime()
+                            .exec("su -c cat " + "/sys/devices/system/cpu/cpu4/cpufreq/scaling_min_freq");
+            BufferedReader reader =
+                    new BufferedReader(new InputStreamReader(process.getInputStream()));
+            String line = reader.readLine();
+            if (line != null) {
+                return Integer.parseInt(line.trim());
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return clockValues[0];
+    }
+
     private void loadClockValues() {
         try {
             Process process =
