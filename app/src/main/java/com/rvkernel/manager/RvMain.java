@@ -195,6 +195,30 @@ public class RvMain extends AppCompatActivity {
                 .show();
     }
 
+    private void updateCPUButtonUI() {
+        executor.execute(() -> {
+            int minCPU0Freq = rvLittleCPU.loadMinCPU0freq();
+            int maxCPU0Freq = rvLittleCPU.loadMaxCPU0freq();
+            int minCPU4Freq = rvBigCPU.loadMinCPU4freq();
+            int maxCPU4Freq = rvBigCPU.loadMaxCPU4freq();
+
+            mainHandler.post(() -> {
+                if (btnMinCPU0freq != null) {
+                    btnMinCPU0freq.setText((minCPU0Freq / 1000) + " MHz");
+                }
+                if (btnMaxCPU0freq != null) {
+                    btnMaxCPU0freq.setText((maxCPU0Freq / 1000) + " MHz");
+                }
+                if (btnMinCPU4freq != null) {
+                    btnMinCPU4freq.setText((minCPU4Freq / 1000) + " MHz");
+                }
+                if (btnMaxCPU4freq != null) {
+                    btnMaxCPU4freq.setText((maxCPU4Freq / 1000) + " MHz");
+                }
+            });
+        });
+    }
+
     private void updateGPUButtonUI() {
         mainHandler.post(
                 () -> {
@@ -216,6 +240,9 @@ public class RvMain extends AppCompatActivity {
         
         // GPU
         updateGPUButtonUI();
+        
+        // CPU
+        updateCPUButtonUI();
     }
 
     @Override
