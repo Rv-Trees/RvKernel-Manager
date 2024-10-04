@@ -48,7 +48,7 @@ public class RvLittleCPU {
         }
     }
 
-    private int loadMinCPU0freq() {
+    public int loadMinCPU0freq() {
         try {
             Process process =
                     Runtime.getRuntime()
