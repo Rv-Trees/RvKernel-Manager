@@ -1,5 +1,9 @@
 package com.rvkernel.manager;
 
+import android.content.Context;
+import android.widget.Button;
+import androidx.appcompat.app.AlertDialog;
+
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.IOException;
@@ -8,6 +12,27 @@ public class RvBigCPU {
 
     private String[] clockTexts;
     private int[] clockValues;
+
+    public void showMinCPU4freq(Context context, Button btnMinCPU4freq) {
+        loadClockValues();
+        int currentClock = loadMinCPU4freq();
+        btnMinCPU4freq.setText(getClockText(currentClock));
+        btnMinCPU4freq.setOnClickListener(
+                v -> {
+                        AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.RoundedDialog);
+                        builder.setTitle("Minimum CPU Frequency");
+                        builder.setItems(
+                                clockTexts,
+                                (dialog, which) -> {
+                                    int selectedValue = clockValues[which];
+
+                                    if (SetMinCPU4freq(selectedValue)) {
+                                        btnMinCPU4freq.setText(clockTexts[which]);
+                                    }
+                                });
+                        builder.show();
+                });
+    }
 
     private boolean SetMinCPU4freq(int value) {
         try {
