@@ -100,7 +100,7 @@ public class RvLittleCPU {
         }
     }
 
-    private int loadMaxCPU0freq() {
+    public int loadMaxCPU0freq() {
         try {
             Process process =
                     Runtime.getRuntime()
