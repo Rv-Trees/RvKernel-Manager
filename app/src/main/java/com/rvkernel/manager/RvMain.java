@@ -28,6 +28,11 @@ public class RvMain extends AppCompatActivity {
             "4.9.337-RvKernel-Be4-v0.6"
     };
 
+    // Little Cluster CPU
+    private RvLittleCPU rvLittleCPU;
+    private MaterialButton btnMinCPU0freq;
+    private MaterialButton btnMaxCPU0freq;
+
     // GPU
     private RvGpu rvGpu;
     private MaterialButton btnAdrenoBoostMode;
@@ -92,10 +97,10 @@ public class RvMain extends AppCompatActivity {
         rvCharging.disableThermalChargingSwitch(this, switchDisableThermalCharging);
 
         // Little Cluster CPU
-        MaterialButton btnMinCPU0freq = findViewById(R.id.btnMinCPU0freq);
-        MaterialButton btnMaxCPU0freq = findViewById(R.id.btnMaxCPU0freq);
+        btnMinCPU0freq = findViewById(R.id.btnMinCPU0freq);
+        btnMaxCPU0freq = findViewById(R.id.btnMaxCPU0freq);
 
-        RvLittleCPU rvLittleCPU = new RvLittleCPU();
+        rvLittleCPU = new RvLittleCPU();
         rvLittleCPU.showMinCPU0freq(this, btnMinCPU0freq);
         rvLittleCPU.showMaxCPU0freq(this, btnMaxCPU0freq);
 
