@@ -65,6 +65,23 @@ public class RvLittleCPU {
         return clockValues[0];
     }
 
+    private int loadMaxCPU0freq() {
+        try {
+            Process process =
+                    Runtime.getRuntime()
+                            .exec("su -c cat " + "/sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq");
+            BufferedReader reader =
+                    new BufferedReader(new InputStreamReader(process.getInputStream()));
+            String line = reader.readLine();
+            if (line != null) {
+                return Integer.parseInt(line.trim());
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return clockValues[0];
+    }
+
     private void loadClockValues() {
         try {
             Process process =
