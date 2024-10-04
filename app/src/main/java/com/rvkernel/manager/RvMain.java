@@ -7,6 +7,8 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
+import android.os.Looper;
 import android.provider.Settings;
 import android.widget.Button;
 import android.widget.Switch;
@@ -21,12 +23,17 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
 import java.io.File;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class RvMain extends AppCompatActivity {
 
     public static final String[] REQUIRED_KERNEL = {
             "4.9.337-RvKernel-Be4-v0.6"
     };
+
+    private ExecutorService executor;
+    private Handler mainHandler;
 
     // Little Cluster CPU
     private RvLittleCPU rvLittleCPU;
@@ -73,6 +80,9 @@ public class RvMain extends AppCompatActivity {
         }
 
         requestStoragePermission();
+
+        executor = Executors.newSingleThreadExecutor();
+        mainHandler = new Handler(Looper.getMainLooper());
 
         // Banner
         ShapeableImageView bannerImageView = findViewById(R.id.rvkernelBanner);
