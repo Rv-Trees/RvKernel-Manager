@@ -178,17 +178,29 @@ public class RvMain extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        rvGpu.startUpdateAdrenoBoost(btnAdrenoBoostMode);
-        rvGpu.startUpdateMinGPUfreq(btnMinGPUfreq);
-        rvGpu.startUpdateMaxGPUfreq(btnMaxGPUfreq);
+        if (btnAdrenoBoostMode != null) {
+            rvGpu.startUpdateAdrenoBoost(btnAdrenoBoostMode);
+        }
+        if (btnMinGPUfreq != null) {
+            rvGpu.startUpdateMinGPUfreq(btnMinGPUfreq);
+        }
+        if (btnMaxGPUfreq != null) {
+            rvGpu.startUpdateMaxGPUfreq(btnMaxGPUfreq);
+        }
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        rvGpu.stopUpdateAdrenoBoost();
-        rvGpu.stopUpdateMinGPUfreq();
-        rvGpu.stopUpdateMaxGPUfreq();
+        if (btnAdrenoBoostMode != null) {
+            rvGpu.stopUpdateAdrenoBoost();
+        }
+        if (btnMinGPUfreq != null) {
+            rvGpu.stopUpdateMinGPUfreq();
+        }
+        if (btnMaxGPUfreq != null) {
+            rvGpu.stopUpdateMaxGPUfreq();
+        }
     }
 
     @Override
