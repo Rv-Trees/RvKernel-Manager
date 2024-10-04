@@ -47,7 +47,7 @@ public class RvBigCPU {
         }
     }
 
-    private int loadMinCPU4freq() {
+    public int loadMinCPU4freq() {
         try {
             Process process =
                     Runtime.getRuntime()
