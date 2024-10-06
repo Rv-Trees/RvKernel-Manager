@@ -107,10 +107,8 @@ public class RvMain extends AppCompatActivity {
         executor = Executors.newSingleThreadExecutor();
         mainHandler = new Handler(Looper.getMainLooper());
 
-        // Banner
-        ShapeableImageView bannerImageView = findViewById(R.id.rvkernelBanner);
-        RvBanner.RvBannerTheme(bannerImageView, this);
-        
+        setupUI();
+
         // Scheduler
         switchSchedAutoGroup = findViewById(R.id.switchSchedAutoGroup);
         switchSchedChildRunFirst = findViewById(R.id.switchSchedChildRunFirst);
@@ -207,6 +205,12 @@ public class RvMain extends AppCompatActivity {
                 .setPositiveButton("OK", null)
                 .create()
                 .show();
+    }
+
+    private void setupUI() {
+        // Banner
+        ShapeableImageView bannerImageView = findViewById(R.id.rvkernelBanner);
+        RvBanner.RvBannerTheme(bannerImageView, this);
     }
 
     private void updateCPUButtonUI() {
