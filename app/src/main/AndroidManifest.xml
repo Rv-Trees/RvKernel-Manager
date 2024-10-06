@@ -10,6 +10,7 @@
         tools:ignore="ScopedStorage" />
 
     <application
+        android:hardwareAccelerated="true"
         android:allowBackup="false"
         android:icon="@mipmap/ic_rvkernel_manager"
         android:roundIcon="@mipmap/ic_rvkernel_manager"
