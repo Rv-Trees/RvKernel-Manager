@@ -162,13 +162,9 @@ public class RvMain extends AppCompatActivity {
             } else {
                 createRvKernelManagerFolder();
             }
-        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE)
-                    != PackageManager.PERMISSION_GRANTED) {
-                requestPermissionLauncher.launch(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE});
-            } else {
-                createRvKernelManagerFolder();
-            }
+        } else if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE)
+                != PackageManager.PERMISSION_GRANTED) {
+            requestPermissionLauncher.launch(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE});
         } else {
             createRvKernelManagerFolder();
         }
@@ -262,7 +258,6 @@ public class RvMain extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-
         if (executor != null && !executor.isShutdown()) {
             executor.shutdown();
         }
