@@ -109,11 +109,6 @@ public class RvMain extends AppCompatActivity {
 
         setupUI();
 
-        // RvTuning
-        btnRvTuning = findViewById(R.id.rvTuningButton);
-        rvTuning = new RvTuning(this, btnRvTuning);
-        rvTuning.initBtnRvTuning();
-
         // Device Info
         deviceCodename = findViewById(R.id.deviceCodename);
         ramInfo = findViewById(R.id.ramInfo);
@@ -177,6 +172,9 @@ public class RvMain extends AppCompatActivity {
 
         // GPU
         setupGPU();
+
+        // RvTuning
+        setupRvTuning();
     }
 
     private void setupScheduler() {
@@ -228,6 +226,12 @@ public class RvMain extends AppCompatActivity {
         rvGpu.showMaxGPUfreq(this, btnMaxGPUfreq);
         rvGpu.showAdrenoBoostMode(this, btnAdrenoBoostMode);
         rvGpu.gpuThrottlingSwitch(this, gpuThrottlingSwitch);
+    }
+
+    private void setupRvTuning() {
+        btnRvTuning = findViewById(R.id.rvTuningButton);
+        rvTuning = new RvTuning(this, btnRvTuning);
+        rvTuning.initBtnRvTuning();
     }
 
     private void updateCPUButtonUI() {
