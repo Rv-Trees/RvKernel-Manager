@@ -109,14 +109,6 @@ public class RvMain extends AppCompatActivity {
 
         setupUI();
 
-        // Scheduler
-        switchSchedAutoGroup = findViewById(R.id.switchSchedAutoGroup);
-        switchSchedChildRunFirst = findViewById(R.id.switchSchedChildRunFirst);
-
-        rvScheduler = new RvScheduler();
-        rvScheduler.schedAutoGroupSwitch(this, switchSchedAutoGroup);
-        rvScheduler.schedChildRunFirstSwitch(this, switchSchedChildRunFirst);
-
         // Charging
         switchBypassCharging = findViewById(R.id.switchBypassCharging);
         switchFastCharging = findViewById(R.id.switchFastCharging);
@@ -211,6 +203,18 @@ public class RvMain extends AppCompatActivity {
         // Banner
         ShapeableImageView bannerImageView = findViewById(R.id.rvkernelBanner);
         RvBanner.RvBannerTheme(bannerImageView, this);
+
+        // Scheduler
+        setupScheduler();
+    }
+
+    private void setupScheduler() {
+        switchSchedAutoGroup = findViewById(R.id.switchSchedAutoGroup);
+        switchSchedChildRunFirst = findViewById(R.id.switchSchedChildRunFirst);
+
+        rvScheduler = new RvScheduler();
+        rvScheduler.schedAutoGroupSwitch(this, switchSchedAutoGroup);
+        rvScheduler.schedChildRunFirstSwitch(this, switchSchedChildRunFirst);
     }
 
     private void updateCPUButtonUI() {
