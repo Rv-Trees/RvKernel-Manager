@@ -108,15 +108,6 @@ public class RvMain extends AppCompatActivity {
         mainHandler = new Handler(Looper.getMainLooper());
 
         setupUI();
-
-        // Device Info
-        deviceCodename = findViewById(R.id.deviceCodename);
-        ramInfo = findViewById(R.id.ramInfo);
-        kernelVersion = findViewById(R.id.kernelVersion);
-
-        deviceCodename.setText(RvDeviceInfo.DeviceCodename());
-        ramInfo.setText(RvDeviceInfo.RamInfo());
-        kernelVersion.setText(RvDeviceInfo.KernelVersion());
     }
 
     private void requestStoragePermission() {
@@ -175,6 +166,9 @@ public class RvMain extends AppCompatActivity {
 
         // RvTuning
         setupRvTuning();
+
+        // Device Info
+        setupDeviceInfo();
     }
 
     private void setupScheduler() {
@@ -232,6 +226,16 @@ public class RvMain extends AppCompatActivity {
         btnRvTuning = findViewById(R.id.rvTuningButton);
         rvTuning = new RvTuning(this, btnRvTuning);
         rvTuning.initBtnRvTuning();
+    }
+
+    private void setupDeviceInfo() {
+        deviceCodename = findViewById(R.id.deviceCodename);
+        ramInfo = findViewById(R.id.ramInfo);
+        kernelVersion = findViewById(R.id.kernelVersion);
+
+        deviceCodename.setText(RvDeviceInfo.DeviceCodename());
+        ramInfo.setText(RvDeviceInfo.RamInfo());
+        kernelVersion.setText(RvDeviceInfo.KernelVersion());
     }
 
     private void updateCPUButtonUI() {
