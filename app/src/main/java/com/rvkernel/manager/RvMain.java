@@ -35,6 +35,11 @@ public class RvMain extends AppCompatActivity {
     private ExecutorService executor;
     private Handler mainHandler;
 
+    // Scheduler
+    private RvScheduler rvScheduler;
+    private Switch switchSchedAutoGroup;
+    private Switch switchSchedChildRunFirst;
+
     // Little Cluster CPU
     private RvLittleCPU rvLittleCPU;
     private MaterialButton btnMinCPU0freq;
@@ -94,10 +99,10 @@ public class RvMain extends AppCompatActivity {
         RvBanner.RvBannerTheme(bannerImageView, this);
         
         // Scheduler
-        Switch switchSchedAutoGroup = findViewById(R.id.switchSchedAutoGroup);
-        Switch switchSchedChildRunFirst = findViewById(R.id.switchSchedChildRunFirst);
+        switchSchedAutoGroup = findViewById(R.id.switchSchedAutoGroup);
+        switchSchedChildRunFirst = findViewById(R.id.switchSchedChildRunFirst);
 
-        RvScheduler rvScheduler = new RvScheduler();
+        rvScheduler = new RvScheduler();
         rvScheduler.schedAutoGroupSwitch(this, switchSchedAutoGroup);
         rvScheduler.schedChildRunFirstSwitch(this, switchSchedChildRunFirst);
 
