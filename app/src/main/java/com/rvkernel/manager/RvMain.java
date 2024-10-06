@@ -109,16 +109,6 @@ public class RvMain extends AppCompatActivity {
 
         setupUI();
 
-        // Charging
-        switchBypassCharging = findViewById(R.id.switchBypassCharging);
-        switchFastCharging = findViewById(R.id.switchFastCharging);
-        switchDisableThermalCharging = findViewById(R.id.switchDisableThermalCharging);
-        
-        rvCharging = new RvCharging();
-        rvCharging.bypassChargingSwitch(this, switchBypassCharging);
-        rvCharging.fastChargingSwitch(this, switchFastCharging);
-        rvCharging.disableThermalChargingSwitch(this, switchDisableThermalCharging);
-
         // Little Cluster CPU
         btnMinCPU0freq = findViewById(R.id.btnMinCPU0freq);
         btnMaxCPU0freq = findViewById(R.id.btnMaxCPU0freq);
@@ -206,6 +196,9 @@ public class RvMain extends AppCompatActivity {
 
         // Scheduler
         setupScheduler();
+
+        // Charging
+        setupCharging();
     }
 
     private void setupScheduler() {
@@ -215,6 +208,17 @@ public class RvMain extends AppCompatActivity {
         rvScheduler = new RvScheduler();
         rvScheduler.schedAutoGroupSwitch(this, switchSchedAutoGroup);
         rvScheduler.schedChildRunFirstSwitch(this, switchSchedChildRunFirst);
+    }
+
+    private void setupCharging() {
+        switchBypassCharging = findViewById(R.id.switchBypassCharging);
+        switchFastCharging = findViewById(R.id.switchFastCharging);
+        switchDisableThermalCharging = findViewById(R.id.switchDisableThermalCharging);
+        
+        rvCharging = new RvCharging();
+        rvCharging.bypassChargingSwitch(this, switchBypassCharging);
+        rvCharging.fastChargingSwitch(this, switchFastCharging);
+        rvCharging.disableThermalChargingSwitch(this, switchDisableThermalCharging);
     }
 
     private void updateCPUButtonUI() {
