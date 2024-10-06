@@ -66,6 +66,11 @@ public class RvMain extends AppCompatActivity {
     private RvTuning rvTuning;
     private MaterialButton btnRvTuning;
 
+    // Device Info
+    private TextView deviceCodename;
+    private TextView ramInfo;
+    private TextView kernelVersion;
+
     private final ActivityResultLauncher<String[]> requestPermissionLauncher =
             registerForActivityResult(
                     new ActivityResultContracts.RequestMultiplePermissions(),
@@ -157,9 +162,9 @@ public class RvMain extends AppCompatActivity {
         rvTuning.initBtnRvTuning();
 
         // Device Info
-        TextView deviceCodename = findViewById(R.id.deviceCodename);
-        TextView ramInfo = findViewById(R.id.ramInfo);
-        TextView kernelVersion = findViewById(R.id.kernelVersion);
+        deviceCodename = findViewById(R.id.deviceCodename);
+        ramInfo = findViewById(R.id.ramInfo);
+        kernelVersion = findViewById(R.id.kernelVersion);
 
         deviceCodename.setText(RvDeviceInfo.DeviceCodename());
         ramInfo.setText(RvDeviceInfo.RamInfo());
