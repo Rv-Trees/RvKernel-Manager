@@ -58,6 +58,7 @@ public class RvMain extends AppCompatActivity {
 
     // GPU
     private RvGpu rvGpu;
+    private Switch gpuThrottlingSwitch;
     private MaterialButton btnAdrenoBoostMode;
     private MaterialButton btnMinGPUfreq;
     private MaterialButton btnMaxGPUfreq;
@@ -148,7 +149,7 @@ public class RvMain extends AppCompatActivity {
         btnMinGPUfreq = findViewById(R.id.btnMinGPUfreq);
         btnMaxGPUfreq = findViewById(R.id.btnMaxGPUfreq);
         btnAdrenoBoostMode = findViewById(R.id.btnAdrenoBoostMode);
-        Switch gpuThrottlingSwitch = findViewById(R.id.gpuThrottlingSwitch);
+        gpuThrottlingSwitch = findViewById(R.id.gpuThrottlingSwitch);
 
         rvGpu = new RvGpu();
         rvGpu.showMinGPUfreq(this, btnMinGPUfreq);
