@@ -63,6 +63,7 @@ public class RvMain extends AppCompatActivity {
     private MaterialButton btnMaxGPUfreq;
 
     // RvTuning
+    private RvTuning rvTuning;
     private MaterialButton btnRvTuning;
 
     private final ActivityResultLauncher<String[]> requestPermissionLauncher =
@@ -152,7 +153,7 @@ public class RvMain extends AppCompatActivity {
         
         // RvTuning
         btnRvTuning = findViewById(R.id.rvTuningButton);
-        RvTuning rvTuning = new RvTuning(this, btnRvTuning);
+        rvTuning = new RvTuning(this, btnRvTuning);
         rvTuning.initBtnRvTuning();
 
         // Device Info
