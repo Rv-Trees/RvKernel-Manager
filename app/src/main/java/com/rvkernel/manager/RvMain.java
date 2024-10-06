@@ -109,22 +109,6 @@ public class RvMain extends AppCompatActivity {
 
         setupUI();
 
-        // Little Cluster CPU
-        btnMinCPU0freq = findViewById(R.id.btnMinCPU0freq);
-        btnMaxCPU0freq = findViewById(R.id.btnMaxCPU0freq);
-
-        rvLittleCPU = new RvLittleCPU();
-        rvLittleCPU.showMinCPU0freq(this, btnMinCPU0freq);
-        rvLittleCPU.showMaxCPU0freq(this, btnMaxCPU0freq);
-
-        // Big Cluster CPU
-        btnMinCPU4freq = findViewById(R.id.btnMinCPU4freq);
-        btnMaxCPU4freq = findViewById(R.id.btnMaxCPU4freq);
-
-        rvBigCPU = new RvBigCPU();
-        rvBigCPU.showMinCPU4freq(this, btnMinCPU4freq);
-        rvBigCPU.showMaxCPU4freq(this, btnMaxCPU4freq);
-
         // GPU
         btnMinGPUfreq = findViewById(R.id.btnMinGPUfreq);
         btnMaxGPUfreq = findViewById(R.id.btnMaxGPUfreq);
@@ -199,6 +183,9 @@ public class RvMain extends AppCompatActivity {
 
         // Charging
         setupCharging();
+
+        // CPU
+        setupCPU();
     }
 
     private void setupScheduler() {
@@ -219,6 +206,24 @@ public class RvMain extends AppCompatActivity {
         rvCharging.bypassChargingSwitch(this, switchBypassCharging);
         rvCharging.fastChargingSwitch(this, switchFastCharging);
         rvCharging.disableThermalChargingSwitch(this, switchDisableThermalCharging);
+    }
+
+    private void setupCPU() {
+        // Little Cluster CPU
+        btnMinCPU0freq = findViewById(R.id.btnMinCPU0freq);
+        btnMaxCPU0freq = findViewById(R.id.btnMaxCPU0freq);
+
+        rvLittleCPU = new RvLittleCPU();
+        rvLittleCPU.showMinCPU0freq(this, btnMinCPU0freq);
+        rvLittleCPU.showMaxCPU0freq(this, btnMaxCPU0freq);
+
+        // Big Cluster CPU
+        btnMinCPU4freq = findViewById(R.id.btnMinCPU4freq);
+        btnMaxCPU4freq = findViewById(R.id.btnMaxCPU4freq);
+
+        rvBigCPU = new RvBigCPU();
+        rvBigCPU.showMinCPU4freq(this, btnMinCPU4freq);
+        rvBigCPU.showMaxCPU4freq(this, btnMaxCPU4freq);
     }
 
     private void updateCPUButtonUI() {
