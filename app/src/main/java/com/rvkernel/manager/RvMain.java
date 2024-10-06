@@ -40,6 +40,12 @@ public class RvMain extends AppCompatActivity {
     private Switch switchSchedAutoGroup;
     private Switch switchSchedChildRunFirst;
 
+    // Charging
+    private RvCharging rvCharging;
+    private Switch switchBypassCharging;
+    private Switch switchFastCharging;
+    private Switch switchDisableThermalCharging;
+
     // Little Cluster CPU
     private RvLittleCPU rvLittleCPU;
     private MaterialButton btnMinCPU0freq;
@@ -107,11 +113,11 @@ public class RvMain extends AppCompatActivity {
         rvScheduler.schedChildRunFirstSwitch(this, switchSchedChildRunFirst);
 
         // Charging
-        Switch switchBypassCharging = findViewById(R.id.switchBypassCharging);
-        Switch switchFastCharging = findViewById(R.id.switchFastCharging);
-        Switch switchDisableThermalCharging = findViewById(R.id.switchDisableThermalCharging);
-
-        RvCharging rvCharging = new RvCharging();
+        switchBypassCharging = findViewById(R.id.switchBypassCharging);
+        switchFastCharging = findViewById(R.id.switchFastCharging);
+        switchDisableThermalCharging = findViewById(R.id.switchDisableThermalCharging);
+        
+        rvCharging = new RvCharging();
         rvCharging.bypassChargingSwitch(this, switchBypassCharging);
         rvCharging.fastChargingSwitch(this, switchFastCharging);
         rvCharging.disableThermalChargingSwitch(this, switchDisableThermalCharging);
