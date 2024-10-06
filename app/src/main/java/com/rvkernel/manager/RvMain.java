@@ -109,18 +109,6 @@ public class RvMain extends AppCompatActivity {
 
         setupUI();
 
-        // GPU
-        btnMinGPUfreq = findViewById(R.id.btnMinGPUfreq);
-        btnMaxGPUfreq = findViewById(R.id.btnMaxGPUfreq);
-        btnAdrenoBoostMode = findViewById(R.id.btnAdrenoBoostMode);
-        gpuThrottlingSwitch = findViewById(R.id.gpuThrottlingSwitch);
-
-        rvGpu = new RvGpu();
-        rvGpu.showMinGPUfreq(this, btnMinGPUfreq);
-        rvGpu.showMaxGPUfreq(this, btnMaxGPUfreq);
-        rvGpu.showAdrenoBoostMode(this, btnAdrenoBoostMode);
-        rvGpu.gpuThrottlingSwitch(this, gpuThrottlingSwitch);
-        
         // RvTuning
         btnRvTuning = findViewById(R.id.rvTuningButton);
         rvTuning = new RvTuning(this, btnRvTuning);
@@ -186,6 +174,9 @@ public class RvMain extends AppCompatActivity {
 
         // CPU
         setupCPU();
+
+        // GPU
+        setupGPU();
     }
 
     private void setupScheduler() {
@@ -224,6 +215,19 @@ public class RvMain extends AppCompatActivity {
         rvBigCPU = new RvBigCPU();
         rvBigCPU.showMinCPU4freq(this, btnMinCPU4freq);
         rvBigCPU.showMaxCPU4freq(this, btnMaxCPU4freq);
+    }
+
+    private void setupGPU() {
+        btnMinGPUfreq = findViewById(R.id.btnMinGPUfreq);
+        btnMaxGPUfreq = findViewById(R.id.btnMaxGPUfreq);
+        btnAdrenoBoostMode = findViewById(R.id.btnAdrenoBoostMode);
+        gpuThrottlingSwitch = findViewById(R.id.gpuThrottlingSwitch);
+
+        rvGpu = new RvGpu();
+        rvGpu.showMinGPUfreq(this, btnMinGPUfreq);
+        rvGpu.showMaxGPUfreq(this, btnMaxGPUfreq);
+        rvGpu.showAdrenoBoostMode(this, btnAdrenoBoostMode);
+        rvGpu.gpuThrottlingSwitch(this, gpuThrottlingSwitch);
     }
 
     private void updateCPUButtonUI() {
