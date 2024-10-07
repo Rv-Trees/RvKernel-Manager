@@ -29,7 +29,7 @@ import java.util.concurrent.Executors;
 public class RvMain extends AppCompatActivity {
 
     public static final String[] REQUIRED_KERNEL = {
-            "4.9.337-RvKernel-Be4-v0.6"
+            "4.19.322-RvKernel-Mi8937-v1.4"
     };
 
     private ExecutorService executor;
@@ -39,12 +39,6 @@ public class RvMain extends AppCompatActivity {
     private RvScheduler rvScheduler;
     private Switch switchSchedAutoGroup;
     private Switch switchSchedChildRunFirst;
-
-    // Charging
-    private RvCharging rvCharging;
-    private Switch switchBypassCharging;
-    private Switch switchFastCharging;
-    private Switch switchDisableThermalCharging;
 
     // Little Cluster CPU
     private RvLittleCPU rvLittleCPU;
@@ -59,33 +53,13 @@ public class RvMain extends AppCompatActivity {
     // GPU
     private RvGpu rvGpu;
     private Switch gpuThrottlingSwitch;
-    private MaterialButton btnAdrenoBoostMode;
     private MaterialButton btnMinGPUfreq;
     private MaterialButton btnMaxGPUfreq;
-
-    // RvTuning
-    private RvTuning rvTuning;
-    private MaterialButton btnRvTuning;
 
     // Device Info
     private TextView deviceCodename;
     private TextView ramInfo;
     private TextView kernelVersion;
-
-    private final ActivityResultLauncher<String[]> requestPermissionLauncher =
-            registerForActivityResult(
-                    new ActivityResultContracts.RequestMultiplePermissions(),
-                    result -> {
-                        boolean readGranted = Boolean.TRUE.equals(result.get(Manifest.permission.READ_EXTERNAL_STORAGE));
-                        boolean manageGranted = Build.VERSION.SDK_INT >= Build.VERSION_CODES.R &&
-                                Environment.isExternalStorageManager();
-
-                        if (readGranted || manageGranted) {
-                            createRvKernelManagerFolder();
-                        } else {
-                            showPermissionDeniedDialog();
-                        }
-                    });
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -110,43 +84,6 @@ public class RvMain extends AppCompatActivity {
         setupUI();
     }
 
-    private void requestStoragePermission() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-            if (!Environment.isExternalStorageManager()) {
-                startActivity(new Intent(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION,
-                        Uri.parse("package:" + getPackageName())));
-            } else {
-                createRvKernelManagerFolder();
-            }
-        } else if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE)
-                != PackageManager.PERMISSION_GRANTED) {
-            requestPermissionLauncher.launch(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE});
-        } else {
-            createRvKernelManagerFolder();
-        }
-    }
-
-    private void createRvKernelManagerFolder() {
-        File rvKernelManagerFolder = new File(Environment.getExternalStorageDirectory(), "RvKernel Manager");
-        if (!rvKernelManagerFolder.exists()) {
-            rvKernelManagerFolder.mkdirs();
-        }
-
-        File rvTuningFolder = new File(rvKernelManagerFolder, "RvTuning");
-        if (!rvTuningFolder.exists()) {
-            rvTuningFolder.mkdirs();
-        }
-    }
-
-    private void showPermissionDeniedDialog() {
-        new AlertDialog.Builder(this, R.style.RoundedDialog)
-                .setTitle("Permission Denied")
-                .setMessage("Storage permission is required for kernel profile.")
-                .setPositiveButton("OK", null)
-                .create()
-                .show();
-    }
-
     private void setupUI() {
         // Banner
         ShapeableImageView bannerImageView = findViewById(R.id.rvkernelBanner);
@@ -155,17 +92,11 @@ public class RvMain extends AppCompatActivity {
         // Scheduler
         setupScheduler();
 
-        // Charging
-        setupCharging();
-
         // CPU
         setupCPU();
 
         // GPU
         setupGPU();
-
-        // RvTuning
-        setupRvTuning();
 
         // Device Info
         setupDeviceInfo();
@@ -178,17 +109,6 @@ public class RvMain extends AppCompatActivity {
         rvScheduler = new RvScheduler();
         rvScheduler.schedAutoGroupSwitch(this, switchSchedAutoGroup);
         rvScheduler.schedChildRunFirstSwitch(this, switchSchedChildRunFirst);
-    }
-
-    private void setupCharging() {
-        switchBypassCharging = findViewById(R.id.switchBypassCharging);
-        switchFastCharging = findViewById(R.id.switchFastCharging);
-        switchDisableThermalCharging = findViewById(R.id.switchDisableThermalCharging);
-        
-        rvCharging = new RvCharging();
-        rvCharging.bypassChargingSwitch(this, switchBypassCharging);
-        rvCharging.fastChargingSwitch(this, switchFastCharging);
-        rvCharging.disableThermalChargingSwitch(this, switchDisableThermalCharging);
     }
 
     private void setupCPU() {
@@ -212,20 +132,12 @@ public class RvMain extends AppCompatActivity {
     private void setupGPU() {
         btnMinGPUfreq = findViewById(R.id.btnMinGPUfreq);
         btnMaxGPUfreq = findViewById(R.id.btnMaxGPUfreq);
-        btnAdrenoBoostMode = findViewById(R.id.btnAdrenoBoostMode);
         gpuThrottlingSwitch = findViewById(R.id.gpuThrottlingSwitch);
 
         rvGpu = new RvGpu();
         rvGpu.showMinGPUfreq(this, btnMinGPUfreq);
         rvGpu.showMaxGPUfreq(this, btnMaxGPUfreq);
-        rvGpu.showAdrenoBoostMode(this, btnAdrenoBoostMode);
         rvGpu.gpuThrottlingSwitch(this, gpuThrottlingSwitch);
-    }
-
-    private void setupRvTuning() {
-        btnRvTuning = findViewById(R.id.rvTuningButton);
-        rvTuning = new RvTuning(this, btnRvTuning);
-        rvTuning.initBtnRvTuning();
     }
 
     private void setupDeviceInfo() {
@@ -265,9 +177,6 @@ public class RvMain extends AppCompatActivity {
     private void updateGPUButtonUI() {
         mainHandler.post(
                 () -> {
-                    if (btnAdrenoBoostMode != null) {
-                        rvGpu.startUpdateAdrenoBoost(btnAdrenoBoostMode);
-                    }
                     if (btnMinGPUfreq != null) {
                         rvGpu.startUpdateMinGPUfreq(btnMinGPUfreq);
                     }
@@ -280,10 +189,10 @@ public class RvMain extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        
+
         // GPU
         updateGPUButtonUI();
-        
+
         // CPU
         updateCPUButtonUI();
     }
@@ -291,9 +200,6 @@ public class RvMain extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        if (btnAdrenoBoostMode != null) {
-            rvGpu.stopUpdateAdrenoBoost();
-        }
         if (btnMinGPUfreq != null) {
             rvGpu.stopUpdateMinGPUfreq();
         }

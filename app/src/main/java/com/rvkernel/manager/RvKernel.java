@@ -32,12 +32,12 @@ public class RvKernel {
             }
         }
     }
-    
+
     public static void KernelNotSupported(Activity activity) {
         hideContent(activity);
         new AlertDialog.Builder(activity, R.style.RoundedDialog)
                 .setTitle("Kernel not supported")
-                .setMessage("Must use RvKernel Be4 v0.6 or above to use RvKernel Manager.")
+                .setMessage("Must use RvKernel Mi8937 v1.4 to use RvKernel Manager.")
                 .setCancelable(false)
                 .setPositiveButton("Exit", (dialog, which) -> activity.finish())
                 .setOnDismissListener(dialog -> showContent(activity))

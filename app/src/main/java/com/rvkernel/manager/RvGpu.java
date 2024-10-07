@@ -17,90 +17,11 @@ public class RvGpu {
     private static final int UPDATE_INTERVAL = 1000;
 
     private Handler handler = new Handler(Looper.getMainLooper());
-    private Runnable updateAdrenoBoostModeRT;
     private Runnable updateMinGPUfreqRT;
     private Runnable updateMaxGPUfreqRT;
 
-    private String[] boostTexts = {"Off", "Low", "Medium", "High"};
-    private int[] boostValues = {0, 1, 2, 3};
-
     private String[] clockTexts;
     private int[] clockValues;
-
-    public void showAdrenoBoostMode(Context context, Button btnAdrenoBoostMode) {
-        int currentMode = loadAdrenoBoostMode();
-        btnAdrenoBoostMode.setText(boostTexts[currentMode]);
-        btnAdrenoBoostMode.setOnClickListener(
-                v -> {
-                    AlertDialog.Builder builder =
-                            new AlertDialog.Builder(context, R.style.RoundedDialog);
-                    builder.setTitle("Adreno Boost");
-                    builder.setItems(
-                            boostTexts,
-                            (dialog, which) -> {
-                                int selectedValue = boostValues[which];
-
-                                if (setAdrenoBoostMode(selectedValue)) {
-                                    btnAdrenoBoostMode.setText(boostTexts[which]);
-                                }
-                            });
-                    builder.show();
-                });
-    }
-
-    private boolean setAdrenoBoostMode(int value) {
-        try {
-            Process process =
-                    Runtime.getRuntime()
-                            .exec(
-                                    "su -c echo " + value + " > " + "/sys/class/kgsl/kgsl-3d0/devfreq/adrenoboost");
-            process.waitFor();
-
-            return process.exitValue() == 0;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
-        }
-    }
-
-    private int loadAdrenoBoostMode() {
-        try {
-            Process process =
-                    Runtime.getRuntime()
-                            .exec("su -c cat " + "/sys/class/kgsl/kgsl-3d0/devfreq/adrenoboost");
-            BufferedReader reader =
-                    new BufferedReader(new InputStreamReader(process.getInputStream()));
-            String line = reader.readLine();
-            if (line != null) {
-                return Integer.parseInt(line.trim());
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return 0;
-    }
-
-    public void startUpdateAdrenoBoost(final Button btnAdrenoBoostMode) {
-        updateAdrenoBoostModeRT =
-                new Runnable() {
-                    @Override
-                    public void run() {
-                        int currentAdrenoBoostMode = loadAdrenoBoostMode();
-                        btnAdrenoBoostMode.setText(
-                                boostTexts[
-                                        currentAdrenoBoostMode]);
-                        handler.postDelayed(this, UPDATE_INTERVAL);
-                    }
-                };
-
-        handler.post(updateAdrenoBoostModeRT);
-    }
-
-    public void stopUpdateAdrenoBoost() {
-        if (handler != null && updateAdrenoBoostModeRT != null) {
-            handler.removeCallbacks(updateAdrenoBoostModeRT);
-        }
-    }
 
     public void gpuThrottlingSwitch(Context context, Switch gpuThrottlingSwitch) {
         int currentGpuThrottlingValue = loadGpuThrottlingValue();
@@ -125,7 +46,7 @@ public class RvGpu {
             return false;
         }
     }
-    
+
     private int loadGpuThrottlingValue() {
         try {
             Process process =
