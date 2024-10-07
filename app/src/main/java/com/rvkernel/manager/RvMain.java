@@ -76,8 +76,6 @@ public class RvMain extends AppCompatActivity {
             return;
         }
 
-        requestStoragePermission();
-
         executor = Executors.newSingleThreadExecutor();
         mainHandler = new Handler(Looper.getMainLooper());
 
