@@ -147,7 +147,7 @@ public class RvGpu {
         }
     }
 
-    private int loadMinGPUfreq() {
+    public int loadMinGPUfreq() {
         try {
             Process process =
                     Runtime.getRuntime()
