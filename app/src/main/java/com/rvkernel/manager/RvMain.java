@@ -151,15 +151,19 @@ public class RvMain extends AppCompatActivity {
     }
 
     private void updateGPUButtonUI() {
-        mainHandler.post(
-                () -> {
-                    if (btnMinGPUfreq != null) {
-                        rvGpu.startUpdateMinGPUfreq(btnMinGPUfreq);
-                    }
-                    if (btnMaxGPUfreq != null) {
-                        rvGpu.startUpdateMaxGPUfreq(btnMaxGPUfreq);
-                    }
-                });
+        executor.execute(() -> {
+            int minGPUFreq = rvGpu.loadMinGPUfreq();
+            int maxGPUFreq = rvGpu.loadMaxGPUfreq();
+
+            mainHandler.post(() -> {
+                if (btnMinGPUfreq != null) {
+                    btnMinGPUfreq.setText((minGPUFreq / 1000) + " MHz");
+                }
+                if (btnMaxGPUfreq != null) {
+                    btnMaxGPUfreq.setText((maxGPUFreq / 1000) + " MHz");
+                }
+            });
+        });
     }
 
     @Override
@@ -176,12 +180,6 @@ public class RvMain extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        if (btnMinGPUfreq != null) {
-            rvGpu.stopUpdateMinGPUfreq();
-        }
-        if (btnMaxGPUfreq != null) {
-            rvGpu.stopUpdateMaxGPUfreq();
-        }
     }
 
     @Override

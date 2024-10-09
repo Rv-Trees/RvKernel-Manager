@@ -4,8 +4,6 @@ import android.content.Context;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Switch;
-import android.os.Handler;
-import android.os.Looper;
 import androidx.appcompat.app.AlertDialog;
 
 import java.io.BufferedReader;
@@ -13,12 +11,6 @@ import java.io.InputStreamReader;
 import java.io.IOException;
 
 public class RvGpu {
-
-    private static final int UPDATE_INTERVAL = 1000;
-
-    private Handler handler = new Handler(Looper.getMainLooper());
-    private Runnable updateMinGPUfreqRT;
-    private Runnable updateMaxGPUfreqRT;
 
     private String[] clockTexts;
     private int[] clockValues;
@@ -116,28 +108,6 @@ public class RvGpu {
         return clockValues[0];
     }
 
-    private void updateMinGPUfreq(Button btnMinGPUfreq) {
-        int currentMinGPUfreq = loadMinGPUfreq();
-        btnMinGPUfreq.setText(getClockText(currentMinGPUfreq));
-    }
-
-    public void startUpdateMinGPUfreq(Button btnMinGPUfreq) {
-        updateMinGPUfreqRT =
-                new Runnable() {
-                    @Override
-                    public void run() {
-                        updateMinGPUfreq(btnMinGPUfreq);
-                        handler.postDelayed(this, UPDATE_INTERVAL);
-                    }
-                };
-
-        handler.post(updateMinGPUfreqRT);
-    }
-
-    public void stopUpdateMinGPUfreq() {
-        handler.removeCallbacks(updateMinGPUfreqRT);
-    }
-
     public void showMaxGPUfreq(Context context, Button btnMaxGPUfreq) {
         loadClockValues();
         int currentClock = loadMinGPUfreq();
@@ -188,28 +158,6 @@ public class RvGpu {
             e.printStackTrace();
         }
         return clockValues[0];
-    }
-
-    private void updateMaxGPUfreq(Button btnMaxGPUfreq) {
-        int currentMaxGPUfreq = loadMaxGPUfreq();
-        btnMaxGPUfreq.setText(getClockText(currentMaxGPUfreq));
-    }
-
-    public void startUpdateMaxGPUfreq(Button btnMaxGPUfreq) {
-        updateMaxGPUfreqRT =
-                new Runnable() {
-                    @Override
-                    public void run() {
-                        updateMaxGPUfreq(btnMaxGPUfreq);
-                        handler.postDelayed(this, UPDATE_INTERVAL);
-                    }
-                };
-
-        handler.post(updateMaxGPUfreqRT);
-    }
-
-    public void stopUpdateMaxGPUfreq() {
-        handler.removeCallbacks(updateMaxGPUfreqRT);
     }
 
     private void loadClockValues() {
