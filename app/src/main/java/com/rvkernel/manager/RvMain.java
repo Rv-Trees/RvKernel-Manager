@@ -46,7 +46,7 @@ public class RvMain extends AppCompatActivity {
     private MaterialButton btnMaxCPUfreq;
 
     // GPU
-    private RvGpu rvGpu;
+    private RvGPU rvGPU;
     private Switch gpuThrottlingSwitch;
     private MaterialButton btnMinGPUfreq;
     private MaterialButton btnMaxGPUfreq;
@@ -118,10 +118,10 @@ public class RvMain extends AppCompatActivity {
         btnMaxGPUfreq = findViewById(R.id.btnMaxGPUfreq);
         gpuThrottlingSwitch = findViewById(R.id.gpuThrottlingSwitch);
 
-        rvGpu = new RvGpu();
-        rvGpu.showMinGPUfreq(this, btnMinGPUfreq);
-        rvGpu.showMaxGPUfreq(this, btnMaxGPUfreq);
-        rvGpu.gpuThrottlingSwitch(this, gpuThrottlingSwitch);
+        rvGPU = new RvGPU();
+        rvGPU.showMinGPUfreq(this, btnMinGPUfreq);
+        rvGPU.showMaxGPUfreq(this, btnMaxGPUfreq);
+        rvGPU.gpuThrottlingSwitch(this, gpuThrottlingSwitch);
     }
 
     private void setupDeviceInfo() {
@@ -152,8 +152,8 @@ public class RvMain extends AppCompatActivity {
 
     private void updateGPUButtonUI() {
         executor.execute(() -> {
-            int minGPUFreq = rvGpu.loadMinGPUfreq();
-            int maxGPUFreq = rvGpu.loadMaxGPUfreq();
+            int minGPUFreq = rvGPU.loadMinGPUfreq();
+            int maxGPUFreq = rvGPU.loadMaxGPUfreq();
 
             mainHandler.post(() -> {
                 if (btnMinGPUfreq != null) {
