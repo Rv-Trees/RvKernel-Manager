@@ -10,7 +10,7 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.IOException;
 
-public class RvGpu {
+public class RvGPU {
 
     private String[] clockTexts;
     private int[] clockValues;
