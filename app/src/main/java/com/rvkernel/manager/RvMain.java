@@ -45,11 +45,6 @@ public class RvMain extends AppCompatActivity {
     private MaterialButton btnMinCPU0freq;
     private MaterialButton btnMaxCPU0freq;
 
-    // Big Cluster CPU
-    private RvBigCPU rvBigCPU;
-    private MaterialButton btnMinCPU4freq;
-    private MaterialButton btnMaxCPU4freq;
-
     // GPU
     private RvGpu rvGpu;
     private Switch gpuThrottlingSwitch;
@@ -117,14 +112,6 @@ public class RvMain extends AppCompatActivity {
         rvLittleCPU = new RvLittleCPU();
         rvLittleCPU.showMinCPU0freq(this, btnMinCPU0freq);
         rvLittleCPU.showMaxCPU0freq(this, btnMaxCPU0freq);
-
-        // Big Cluster CPU
-        btnMinCPU4freq = findViewById(R.id.btnMinCPU4freq);
-        btnMaxCPU4freq = findViewById(R.id.btnMaxCPU4freq);
-
-        rvBigCPU = new RvBigCPU();
-        rvBigCPU.showMinCPU4freq(this, btnMinCPU4freq);
-        rvBigCPU.showMaxCPU4freq(this, btnMaxCPU4freq);
     }
 
     private void setupGPU() {
@@ -152,8 +139,6 @@ public class RvMain extends AppCompatActivity {
         executor.execute(() -> {
             int minCPU0Freq = rvLittleCPU.loadMinCPU0freq();
             int maxCPU0Freq = rvLittleCPU.loadMaxCPU0freq();
-            int minCPU4Freq = rvBigCPU.loadMinCPU4freq();
-            int maxCPU4Freq = rvBigCPU.loadMaxCPU4freq();
 
             mainHandler.post(() -> {
                 if (btnMinCPU0freq != null) {
@@ -161,12 +146,6 @@ public class RvMain extends AppCompatActivity {
                 }
                 if (btnMaxCPU0freq != null) {
                     btnMaxCPU0freq.setText((maxCPU0Freq / 1000) + " MHz");
-                }
-                if (btnMinCPU4freq != null) {
-                    btnMinCPU4freq.setText((minCPU4Freq / 1000) + " MHz");
-                }
-                if (btnMaxCPU4freq != null) {
-                    btnMaxCPU4freq.setText((maxCPU4Freq / 1000) + " MHz");
                 }
             });
         });
