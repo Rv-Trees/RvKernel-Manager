@@ -179,10 +179,10 @@ public class RvMain extends AppCompatActivity {
 
             mainHandler.post(() -> {
                 if (btnMinGPUfreq != null) {
-                    btnMinGPUfreq.setText((minGPUFreq / 1000) + " MHz");
+                    btnMinGPUfreq.setText(minGPUFreq + " MHz");
                 }
                 if (btnMaxGPUfreq != null) {
-                    btnMaxGPUfreq.setText((maxGPUFreq / 1000) + " MHz");
+                    btnMaxGPUfreq.setText(maxGPUFreq + " MHz");
                 }
             });
         });
