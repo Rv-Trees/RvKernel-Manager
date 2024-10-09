@@ -10,7 +10,7 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.IOException;
 
-public class RvGpu {
+public class RvGPU {
 
     private String[] boostTexts = {"Off", "Low", "Medium", "High"};
     private int[] boostValues = {0, 1, 2, 3};
