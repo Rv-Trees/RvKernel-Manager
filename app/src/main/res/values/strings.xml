@@ -24,7 +24,6 @@
     <!-- GPU -->
     <string name="gpu_title">GPU</string>
     <string name="thermal_gpu">Disable Thermal GPU</string>
-    <string name="adreno_boost">Adreno Boost</string>
     
     <!-- RvTuning -->
     <string name="rvtuning_title">RvTuning</string>
