@@ -28,10 +28,6 @@
             layout="@layout/rvgpu" />
 
         <include
-            android:id="@+id/RvTuning"
-            layout="@layout/rvtuning" />
-
-        <include
             android:id="@+id/RvDeviceInfo"
             layout="@layout/rvdeviceinfo" />
 

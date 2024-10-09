@@ -18,10 +18,6 @@
     <string name="gpu_title">GPU</string>
     <string name="thermal_gpu">Disable Thermal GPU</string>
     
-    <!-- RvTuning -->
-    <string name="rvtuning_title">RvTuning</string>
-    <string name="rvtuning_mode">Kernel Mode</string>
-    
     <!-- Info -->
     <string name="info_title">Info</string>
     <string name="device_codename">Codename</string>
