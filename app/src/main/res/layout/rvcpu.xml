@@ -16,7 +16,7 @@
         android:paddingRight="25dp"
         android:clickable="false"
         android:textStyle="bold"
-        android:text="@string/cpu0_title"
+        android:text="@string/cpu_title"
         android:textSize="26sp" />
 
     <com.google.android.material.card.MaterialCardView
@@ -60,7 +60,7 @@
                     android:textColor="@color/textColorPrimary"
                     android:layout_height="wrap_content"
                     android:layout_width="wrap_content"
-                    android:id="@+id/btnMinCPU0freq" />
+                    android:id="@+id/btnMinCPUfreq" />
     
             </LinearLayout>
 
@@ -91,7 +91,7 @@
                     android:textColor="@color/textColorPrimary"
                     android:layout_height="wrap_content"
                     android:layout_width="wrap_content"
-                    android:id="@+id/btnMaxCPU0freq" />
+                    android:id="@+id/btnMaxCPUfreq" />
     
             </LinearLayout>
 

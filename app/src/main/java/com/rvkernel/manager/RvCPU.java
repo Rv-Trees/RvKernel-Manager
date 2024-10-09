@@ -8,16 +8,16 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.IOException;
 
-public class RvLittleCPU {
+public class RvCPU {
 
     private String[] clockTexts;
     private int[] clockValues;
 
-    public void showMinCPU0freq(Context context, Button btnMinCPU0freq) {
+    public void showMinCPUfreq(Context context, Button btnMinCPUfreq) {
         loadClockValues();
-        int currentClock = loadMinCPU0freq();
-        btnMinCPU0freq.setText(getClockText(currentClock));
-        btnMinCPU0freq.setOnClickListener(
+        int currentClock = loadMinCPUfreq();
+        btnMinCPUfreq.setText(getClockText(currentClock));
+        btnMinCPUfreq.setOnClickListener(
                 v -> {
                         AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.RoundedDialog);
                         builder.setTitle("Minimum CPU Frequency");
@@ -26,20 +26,20 @@ public class RvLittleCPU {
                                 (dialog, which) -> {
                                     int selectedValue = clockValues[which];
 
-                                    if (SetMinCPU0freq(selectedValue)) {
-                                        btnMinCPU0freq.setText(clockTexts[which]);
+                                    if (SetMinCPUfreq(selectedValue)) {
+                                        btnMinCPUfreq.setText(clockTexts[which]);
                                     }
                                 });
                         builder.show();
                 });
     }
 
-    private boolean SetMinCPU0freq(int value) {
+    private boolean SetMinCPUfreq(int value) {
         try {
             Process process =
                     Runtime.getRuntime()
                             .exec(
-                                    "su -c echo " + value + " > " + "/sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq");
+                                    "su -c echo " + value + " > " + "/sys/devices/system/cpu/cpufreq/policy0/scaling_min_freq");
             process.waitFor();
             return process.exitValue() == 0;
         } catch (Exception e) {
@@ -48,11 +48,11 @@ public class RvLittleCPU {
         }
     }
 
-    public int loadMinCPU0freq() {
+    public int loadMinCPUfreq() {
         try {
             Process process =
                     Runtime.getRuntime()
-                            .exec("su -c cat " + "/sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq");
+                            .exec("su -c cat " + "sys/devices/system/cpu/cpufreq/policy0/scaling_min_freq");
             BufferedReader reader =
                     new BufferedReader(new InputStreamReader(process.getInputStream()));
             String line = reader.readLine();
@@ -65,11 +65,11 @@ public class RvLittleCPU {
         return clockValues[0];
     }
 
-    public void showMaxCPU0freq(Context context, Button btnMaxCPU0freq) {
+    public void showMaxCPUfreq(Context context, Button btnMaxCPUfreq) {
         loadClockValues();
-        int currentClock = loadMaxCPU0freq();
-        btnMaxCPU0freq.setText(getClockText(currentClock));
-        btnMaxCPU0freq.setOnClickListener(
+        int currentClock = loadMaxCPUfreq();
+        btnMaxCPUfreq.setText(getClockText(currentClock));
+        btnMaxCPUfreq.setOnClickListener(
                 v -> {
                         AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.RoundedDialog);
                         builder.setTitle("Maximum CPU Frequency");
@@ -78,20 +78,20 @@ public class RvLittleCPU {
                                 (dialog, which) -> {
                                     int selectedValue = clockValues[which];
 
-                                    if (SetMaxCPU0freq(selectedValue)) {
-                                        btnMaxCPU0freq.setText(clockTexts[which]);
+                                    if (SetMaxCPUfreq(selectedValue)) {
+                                        btnMaxCPUfreq.setText(clockTexts[which]);
                                     }
                                 });
                         builder.show();
                 });
     }
 
-    private boolean SetMaxCPU0freq(int value) {
+    private boolean SetMaxCPUfreq(int value) {
         try {
             Process process =
                     Runtime.getRuntime()
                             .exec(
-                                    "su -c echo " + value + " > " + "/sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq");
+                                    "su -c echo " + value + " > " + "/sys/devices/system/cpu/cpufreq/policy0/scaling_max_freq");
             process.waitFor();
             return process.exitValue() == 0;
         } catch (Exception e) {
@@ -100,11 +100,11 @@ public class RvLittleCPU {
         }
     }
 
-    public int loadMaxCPU0freq() {
+    public int loadMaxCPUfreq() {
         try {
             Process process =
                     Runtime.getRuntime()
-                            .exec("su -c cat " + "/sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq");
+                            .exec("su -c cat " + "sys/devices/system/cpu/cpufreq/policy0/scaling_max_freq");
             BufferedReader reader =
                     new BufferedReader(new InputStreamReader(process.getInputStream()));
             String line = reader.readLine();
@@ -122,7 +122,7 @@ public class RvLittleCPU {
             Process process =
                     Runtime.getRuntime()
                             .exec(
-                                    "su -c cat " + "/sys/devices/system/cpu/cpu0/cpufreq/scaling_available_frequencies");
+                                    "su -c cat " + "sys/devices/system/cpu/cpufreq/policy0/scaling_available_frequencies");
             BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
             String line;
             StringBuilder sb = new StringBuilder();

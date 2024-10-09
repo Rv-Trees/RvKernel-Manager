@@ -18,8 +18,7 @@
     <string name="max_freq">Maximum Frequency</string>
 
     <!-- CPU -->
-    <string name="cpu0_title">Little Cluster CPU</string>
-    <string name="cpu4_title">Big Cluster CPU</string>
+    <string name="cpu_title">CPU</string>
 
     <!-- GPU -->
     <string name="gpu_title">GPU</string>

@@ -24,8 +24,8 @@
             layout="@layout/rvcharging" />
 
         <include
-            android:id="@+id/RvLittleCPU"
-            layout="@layout/rvlittlecpu" />
+            android:id="@+id/RvCPU"
+            layout="@layout/rvcpu" />
 
         <include
             android:id="@+id/RvGPU"

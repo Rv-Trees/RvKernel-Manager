@@ -40,10 +40,10 @@ public class RvMain extends AppCompatActivity {
     private Switch switchSchedAutoGroup;
     private Switch switchSchedChildRunFirst;
 
-    // Little Cluster CPU
-    private RvLittleCPU rvLittleCPU;
-    private MaterialButton btnMinCPU0freq;
-    private MaterialButton btnMaxCPU0freq;
+    // CPU
+    private RvCPU rvCPU;
+    private MaterialButton btnMinCPUfreq;
+    private MaterialButton btnMaxCPUfreq;
 
     // GPU
     private RvGpu rvGpu;
@@ -105,13 +105,12 @@ public class RvMain extends AppCompatActivity {
     }
 
     private void setupCPU() {
-        // Little Cluster CPU
-        btnMinCPU0freq = findViewById(R.id.btnMinCPU0freq);
-        btnMaxCPU0freq = findViewById(R.id.btnMaxCPU0freq);
+        btnMinCPUfreq = findViewById(R.id.btnMinCPUfreq);
+        btnMaxCPUfreq = findViewById(R.id.btnMaxCPUfreq);
 
-        rvLittleCPU = new RvLittleCPU();
-        rvLittleCPU.showMinCPU0freq(this, btnMinCPU0freq);
-        rvLittleCPU.showMaxCPU0freq(this, btnMaxCPU0freq);
+        rvCPU = new RvCPU();
+        rvCPU.showMinCPUfreq(this, btnMinCPUfreq);
+        rvCPU.showMaxCPUfreq(this, btnMaxCPUfreq);
     }
 
     private void setupGPU() {
@@ -137,15 +136,15 @@ public class RvMain extends AppCompatActivity {
 
     private void updateCPUButtonUI() {
         executor.execute(() -> {
-            int minCPU0Freq = rvLittleCPU.loadMinCPU0freq();
-            int maxCPU0Freq = rvLittleCPU.loadMaxCPU0freq();
+            int minCPUFreq = rvCPU.loadMinCPUfreq();
+            int maxCPUFreq = rvCPU.loadMaxCPUfreq();
 
             mainHandler.post(() -> {
-                if (btnMinCPU0freq != null) {
-                    btnMinCPU0freq.setText((minCPU0Freq / 1000) + " MHz");
+                if (btnMinCPUfreq != null) {
+                    btnMinCPUfreq.setText((minCPUFreq / 1000) + " MHz");
                 }
-                if (btnMaxCPU0freq != null) {
-                    btnMaxCPU0freq.setText((maxCPU0Freq / 1000) + " MHz");
+                if (btnMaxCPUfreq != null) {
+                    btnMaxCPUfreq.setText((maxCPUFreq / 1000) + " MHz");
                 }
             });
         });
