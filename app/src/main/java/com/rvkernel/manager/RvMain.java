@@ -263,18 +263,19 @@ public class RvMain extends AppCompatActivity {
     }
 
     private void updateGPUButtonUI() {
-        mainHandler.post(
-                () -> {
-                    if (btnAdrenoBoostMode != null) {
-                        rvGpu.startUpdateAdrenoBoost(btnAdrenoBoostMode);
-                    }
-                    if (btnMinGPUfreq != null) {
-                        rvGpu.startUpdateMinGPUfreq(btnMinGPUfreq);
-                    }
-                    if (btnMaxGPUfreq != null) {
-                        rvGpu.startUpdateMaxGPUfreq(btnMaxGPUfreq);
-                    }
-                });
+        executor.execute(() -> {
+            int minGPUFreq = rvGpu.loadMinGPUfreq();
+            int maxGPUFreq = rvGpu.loadMaxGPUfreq();
+
+            mainHandler.post(() -> {
+                if (btnMinGPUfreq != null) {
+                    btnMinGPUfreq.setText(minGPUFreq + " MHz");
+                }
+                if (btnMaxGPUfreq != null) {
+                    btnMaxGPUfreq.setText(maxGPUFreq + " MHz");
+                }
+            });
+        });
     }
 
     @Override
@@ -291,15 +292,6 @@ public class RvMain extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        if (btnAdrenoBoostMode != null) {
-            rvGpu.stopUpdateAdrenoBoost();
-        }
-        if (btnMinGPUfreq != null) {
-            rvGpu.stopUpdateMinGPUfreq();
-        }
-        if (btnMaxGPUfreq != null) {
-            rvGpu.stopUpdateMaxGPUfreq();
-        }
     }
 
     @Override
