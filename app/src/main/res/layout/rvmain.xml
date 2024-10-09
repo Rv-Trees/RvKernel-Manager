@@ -20,10 +20,6 @@
             layout="@layout/rvscheduler" />
 
         <include
-            android:id="@+id/RvCharging"
-            layout="@layout/rvcharging" />
-
-        <include
             android:id="@+id/RvLittleCPU"
             layout="@layout/rvlittlecpu" />
 
