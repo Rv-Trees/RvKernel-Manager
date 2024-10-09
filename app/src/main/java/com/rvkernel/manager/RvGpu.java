@@ -199,7 +199,7 @@ public class RvGpu {
         }
     }
 
-    private int loadMaxGPUfreq() {
+    public int loadMaxGPUfreq() {
         try {
             Process process =
                     Runtime.getRuntime()
