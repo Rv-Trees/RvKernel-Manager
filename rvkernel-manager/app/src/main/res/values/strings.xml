@@ -7,13 +7,19 @@
     <string name="sched_autogroup_enabled">Auto Task Groups</string>
     <string name="sched_child_runs_first">Optimize Child Process</string>
 
-    <!-- Frequency -->
-    <string name="min_freq">Minimum Frequency</string>
-    <string name="max_freq">Maximum Frequency</string>
+    <!-- Charging -->
+    <string name="charging_title">Charging</string>
+    <string name="input_suspend">Bypass Charging</string>
+    <string name="force_fast_charge">Fast Charging</string>
+    <string name="disable_thermal">Disable Thermal Charging</string>
 
     <!-- CPU -->
     <string name="cpu0_title">Little Cluster CPU</string>
+    <string name="min_freq">Minimum Frequency</string>
+
     <string name="cpu4_title">Big Cluster CPU</string>
+    <string name="max_freq">Maximum Frequency</string>
+    <string name="cpu_governor">Governor</string>
 
     <!-- GPU -->
     <string name="gpu_title">GPU</string>
