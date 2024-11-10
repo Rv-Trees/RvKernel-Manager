@@ -24,10 +24,10 @@ jobs:
         echo "KEYSTORE_FILE=$GITHUB_WORKSPACE/key.jks" >> gradle.properties
         echo "${{ secrets.KEYSTORE }}" | base64 -d > $GITHUB_WORKSPACE/key.jks
 
-    - name: set up JDK 17
+    - name: Setup JDK 23
       uses: actions/setup-java@v4
       with:
-        java-version: '17'
+        java-version: '23'
         distribution: 'temurin'
 
     - name: Setup Gradle
