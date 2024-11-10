@@ -3,6 +3,7 @@ package com.rvkernel.manager;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -13,6 +14,9 @@ import android.provider.Settings;
 import android.widget.Button;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.view.Window;
+import android.view.WindowInsetsController;
+
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.imageview.ShapeableImageView;
 
@@ -105,6 +109,18 @@ public class RvMain extends AppCompatActivity {
         }
 
         requestStoragePermission();
+
+        Window window = getWindow();
+        if (window != null) {
+            WindowInsetsController insetsController = window.getInsetsController();
+            if (insetsController != null) {
+                if ((getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_YES) {
+                    insetsController.setSystemBarsAppearance(0, WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS);
+                } else {
+                    insetsController.setSystemBarsAppearance(WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS, WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS);
+                }
+            }
+        }
 
         executor = Executors.newSingleThreadExecutor();
         mainHandler = new Handler(Looper.getMainLooper());
