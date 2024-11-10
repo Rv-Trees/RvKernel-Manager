@@ -39,7 +39,7 @@ public class RvLittleCPU {
             Process process =
                     Runtime.getRuntime()
                             .exec(
-                                    "su -c echo " + value + " > " + "/sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq");
+                                    "su -c echo " + value + " > " + "/sys/devices/system/cpu/cpufreq/policy0/scaling_min_freq");
             process.waitFor();
             return process.exitValue() == 0;
         } catch (Exception e) {
@@ -52,7 +52,7 @@ public class RvLittleCPU {
         try {
             Process process =
                     Runtime.getRuntime()
-                            .exec("su -c cat " + "/sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq");
+                            .exec("su -c cat " + "/sys/devices/system/cpu/cpufreq/policy0/scaling_min_freq");
             BufferedReader reader =
                     new BufferedReader(new InputStreamReader(process.getInputStream()));
             String line = reader.readLine();
@@ -91,7 +91,7 @@ public class RvLittleCPU {
             Process process =
                     Runtime.getRuntime()
                             .exec(
-                                    "su -c echo " + value + " > " + "/sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq");
+                                    "su -c echo " + value + " > " + "/sys/devices/system/cpu/cpufreq/policy0/scaling_max_freq");
             process.waitFor();
             return process.exitValue() == 0;
         } catch (Exception e) {
@@ -104,7 +104,7 @@ public class RvLittleCPU {
         try {
             Process process =
                     Runtime.getRuntime()
-                            .exec("su -c cat " + "/sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq");
+                            .exec("su -c cat " + "/sys/devices/system/cpu/cpufreq/policy0/scaling_max_freq");
             BufferedReader reader =
                     new BufferedReader(new InputStreamReader(process.getInputStream()));
             String line = reader.readLine();
@@ -122,7 +122,7 @@ public class RvLittleCPU {
             Process process =
                     Runtime.getRuntime()
                             .exec(
-                                    "su -c cat " + "/sys/devices/system/cpu/cpu0/cpufreq/scaling_available_frequencies");
+                                    "su -c cat " + "/sys/devices/system/cpu/cpufreq/policy0/scaling_available_frequencies");
             BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
             String line;
             StringBuilder sb = new StringBuilder();

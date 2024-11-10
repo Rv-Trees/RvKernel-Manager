@@ -38,7 +38,7 @@ public class RvBigCPU {
         try {
             Process process =
                     Runtime.getRuntime()
-                            .exec("su -c echo " + value + " > " + "/sys/devices/system/cpu/cpu4/cpufreq/scaling_min_freq");
+                            .exec("su -c echo " + value + " > " + "/sys/devices/system/cpu/cpufreq/policy4/scaling_min_freq");
             process.waitFor();
             return process.exitValue() == 0;
         } catch (Exception e) {
@@ -51,7 +51,7 @@ public class RvBigCPU {
         try {
             Process process =
                     Runtime.getRuntime()
-                            .exec("su -c cat " + "/sys/devices/system/cpu/cpu4/cpufreq/scaling_min_freq");
+                            .exec("su -c cat " + "/sys/devices/system/cpu/cpufreq/policy4/scaling_min_freq");
             BufferedReader reader =
                     new BufferedReader(new InputStreamReader(process.getInputStream()));
             String line = reader.readLine();
@@ -89,7 +89,7 @@ public class RvBigCPU {
         try {
             Process process =
                     Runtime.getRuntime()
-                            .exec("su -c echo " + value + " > " + "/sys/devices/system/cpu/cpu4/cpufreq/scaling_max_freq");
+                            .exec("su -c echo " + value + " > " + "/sys/devices/system/cpu/cpufreq/policy4/scaling_max_freq");
             process.waitFor();
             return process.exitValue() == 0;
         } catch (Exception e) {
@@ -102,7 +102,7 @@ public class RvBigCPU {
         try {
             Process process =
                     Runtime.getRuntime()
-                            .exec("su -c cat " + "/sys/devices/system/cpu/cpu4/cpufreq/scaling_max_freq");
+                            .exec("su -c cat " + "/sys/devices/system/cpu/cpufreq/policy4/scaling_max_freq");
             BufferedReader reader =
                     new BufferedReader(new InputStreamReader(process.getInputStream()));
             String line = reader.readLine();
@@ -119,7 +119,7 @@ public class RvBigCPU {
         try {
             Process process =
                     Runtime.getRuntime()
-                            .exec("su -c cat /sys/devices/system/cpu/cpu4/cpufreq/scaling_available_frequencies");
+                            .exec("su -c cat /sys/devices/system/cpu/cpufreq/policy4/scaling_available_frequencies");
             BufferedReader reader =
                     new BufferedReader(new InputStreamReader(process.getInputStream()));
             String line;
@@ -140,7 +140,7 @@ public class RvBigCPU {
 
             process =
                     Runtime.getRuntime()
-                            .exec("su -c cat /sys/devices/system/cpu/cpu4/cpufreq/cpuinfo_max_freq");
+                            .exec("su -c cat /sys/devices/system/cpu/cpufreq/policy4/cpuinfo_max_freq");
             reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
             line = reader.readLine();
 
