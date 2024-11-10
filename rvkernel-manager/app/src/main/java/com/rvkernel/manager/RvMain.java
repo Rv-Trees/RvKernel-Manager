@@ -46,15 +46,16 @@ public class RvMain extends AppCompatActivity {
     private Switch switchFastCharging;
     private Switch switchDisableThermalCharging;
 
-    // Little Cluster CPU
+    //  CPU
     private RvLittleCPU rvLittleCPU;
     private MaterialButton btnMinCPU0freq;
     private MaterialButton btnMaxCPU0freq;
+    private MaterialButton btnLittleGovernor;
 
-    // Big Cluster CPU
     private RvBigCPU rvBigCPU;
     private MaterialButton btnMinCPU4freq;
     private MaterialButton btnMaxCPU4freq;
+    private MaterialButton btnBigGovernor;
 
     // GPU
     private RvGPU rvGPU;
@@ -192,21 +193,23 @@ public class RvMain extends AppCompatActivity {
     }
 
     private void setupCPU() {
-        // Little Cluster CPU
         btnMinCPU0freq = findViewById(R.id.btnMinCPU0freq);
         btnMaxCPU0freq = findViewById(R.id.btnMaxCPU0freq);
+	btnLittleGovernor = findViewById(R.id.btnLittleGovernor);
 
         rvLittleCPU = new RvLittleCPU();
         rvLittleCPU.showMinCPU0freq(this, btnMinCPU0freq);
         rvLittleCPU.showMaxCPU0freq(this, btnMaxCPU0freq);
+	rvLittleCPU.showAvailableLittleGovernors(this, btnLittleGovernor);
 
-        // Big Cluster CPU
         btnMinCPU4freq = findViewById(R.id.btnMinCPU4freq);
         btnMaxCPU4freq = findViewById(R.id.btnMaxCPU4freq);
+	btnBigGovernor = findViewById(R.id.btnBigGovernor);
 
         rvBigCPU = new RvBigCPU();
         rvBigCPU.showMinCPU4freq(this, btnMinCPU4freq);
         rvBigCPU.showMaxCPU4freq(this, btnMaxCPU4freq);
+	rvBigCPU.showAvailableBigGovernors(this, btnBigGovernor);
     }
 
     private void setupGPU() {
@@ -246,6 +249,9 @@ public class RvMain extends AppCompatActivity {
                 int minCPU4Freq = rvBigCPU.loadMinCPU4freq();
                 int maxCPU4Freq = rvBigCPU.loadMaxCPU4freq();
 
+		String currentLittleGovernor = rvLittleCPU.loadCurrentLittleGovernor();
+		String currentBigGovernor = rvBigCPU.loadCurrentBigGovernor();
+
                 mainHandler.post(() -> {
                     if (btnMinCPU0freq != null) {
                         btnMinCPU0freq.setText((minCPU0Freq / 1000) + " MHz");
@@ -259,6 +265,12 @@ public class RvMain extends AppCompatActivity {
                     if (btnMaxCPU4freq != null) {
                         btnMaxCPU4freq.setText((maxCPU4Freq / 1000) + " MHz");
                     }
+		    if (btnLittleGovernor != null) {
+			btnLittleGovernor.setText(currentLittleGovernor);
+		    }
+		    if (btnBigGovernor != null) {
+			btnBigGovernor.setText(currentBigGovernor);
+		    }
                 });
             });
 	}
