@@ -18,6 +18,9 @@ public class RvGPU {
     private String[] clockTexts;
     private int[] clockValues;
 
+    private String[] availableGovernors;
+    private String currentGovernor;
+
     public void showAdrenoBoostMode(Context context, Button btnAdrenoBoostMode) {
         int currentMode = loadAdrenoBoostMode();
         btnAdrenoBoostMode.setText(boostTexts[currentMode]);
@@ -94,7 +97,7 @@ public class RvGPU {
             return false;
         }
     }
-    
+
     private int loadGpuThrottlingValue() {
         try {
             Process process =
@@ -253,5 +256,66 @@ public class RvGPU {
             }
         }
         return "Unknown";
+    }
+
+    public void showAvailableGPUGovernors(Context context, Button btnGPUGovernor) {
+        loadAvailableGovernors();
+        currentGovernor = loadCurrentGPUGovernor();
+        btnGPUGovernor.setText(currentGovernor);
+        btnGPUGovernor.setOnClickListener(
+                v -> {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.RoundedDialog);
+                    builder.setTitle("Available Governors");
+                    builder.setItems(
+                            availableGovernors,
+                            (dialog, which) -> {
+                                String selectedGovernor = availableGovernors[which];
+                                if (setCurrentGovernor(selectedGovernor)) {
+                                    btnGPUGovernor.setText(selectedGovernor);
+                                }
+                            });
+                    builder.show();
+                });
+    }
+    private boolean setCurrentGovernor(String governor) {
+        try {
+            Process process = Runtime.getRuntime()
+                    .exec("su -c echo " + governor + " > /sys/class/kgsl/kgsl-3d0/devfreq/governor");
+            process.waitFor();
+            return process.exitValue() == 0;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+    public String loadCurrentGPUGovernor() {
+        try {
+            Process process = Runtime.getRuntime()
+                    .exec("su -c cat /sys/class/kgsl/kgsl-3d0/devfreq/governor");
+            BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+            String line = reader.readLine();
+            if (line != null) {
+                return line.trim();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return "Unknown";
+    }
+    private void loadAvailableGovernors() {
+        try {
+            Process process = Runtime.getRuntime()
+                    .exec("su -c cat /sys/class/kgsl/kgsl-3d0/devfreq/available_governors");
+            BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+            String line;
+            StringBuilder sb = new StringBuilder();
+            while ((line = reader.readLine()) != null) {
+                sb.append(line).append(" ");
+            }
+            availableGovernors = sb.toString().trim().split("\\s+");
+        } catch (IOException e) {
+            e.printStackTrace();
+            availableGovernors = new String[]{"error"};
+        }
     }
 }
