@@ -56,6 +56,7 @@ public class RvMain extends AppCompatActivity {
     private Switch gpuThrottlingSwitch;
     private MaterialButton btnMinGPUfreq;
     private MaterialButton btnMaxGPUfreq;
+    private MaterialButton btnGPUGovernor;
 
     // Device Info
     private TextView deviceCodename;
@@ -134,11 +135,13 @@ public class RvMain extends AppCompatActivity {
         btnMinGPUfreq = findViewById(R.id.btnMinGPUfreq);
         btnMaxGPUfreq = findViewById(R.id.btnMaxGPUfreq);
         gpuThrottlingSwitch = findViewById(R.id.gpuThrottlingSwitch);
+	btnGPUGovernor = findViewById(R.id.btnGPUGovernor);
 
         rvGPU = new RvGPU();
         rvGPU.showMinGPUfreq(this, btnMinGPUfreq);
         rvGPU.showMaxGPUfreq(this, btnMaxGPUfreq);
         rvGPU.gpuThrottlingSwitch(this, gpuThrottlingSwitch);
+	rvGPU.showAvailableGPUGovernors(this, btnGPUGovernor);
     }
 
     private void setupDeviceInfo() {
@@ -192,6 +195,8 @@ public class RvMain extends AppCompatActivity {
                 int minGPUFreq = rvGPU.loadMinGPUfreq();
                 int maxGPUFreq = rvGPU.loadMaxGPUfreq();
 
+		String gpuGovernor = rvGPU.loadCurrentGPUGovernor();
+
                 mainHandler.post(() -> {
                     if (btnMinGPUfreq != null) {
                         btnMinGPUfreq.setText(minGPUFreq + " MHz");
@@ -199,6 +204,9 @@ public class RvMain extends AppCompatActivity {
                     if (btnMaxGPUfreq != null) {
                         btnMaxGPUfreq.setText(maxGPUFreq + " MHz");
                     }
+		    if (btnGPUGovernor != null) {
+			btnGPUGovernor.setText(gpuGovernor);
+		    }
                 });
             });
 	}
