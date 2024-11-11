@@ -20,8 +20,8 @@ android {
         applicationId "com.rvkernel.manager"
         minSdk 33
         targetSdk 34
-        versionCode 14
-        versionName "1.4-be4"
+        versionCode 15
+        versionName "1.5-be4"
         
         vectorDrawables { 
             useSupportLibrary true
