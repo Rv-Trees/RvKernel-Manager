@@ -33,7 +33,7 @@ import java.util.concurrent.Executors;
 public class RvMain extends AppCompatActivity {
 
     public static final String[] REQUIRED_KERNEL = {
-            "4.9.337-RvKernel-Be4-v0.6"
+            "4.9.337-RvKernel-Be4-v0.7", "4.9.337-RvKernel-Be4-v0.7-KSU"
     };
 
     private ExecutorService executor;
