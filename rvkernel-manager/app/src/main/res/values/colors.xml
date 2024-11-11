@@ -4,7 +4,7 @@
     <color name="transparent">#00000000</color>
     
     <!-- Launcher Icon -->
-    <color name="ic_rvkernel_foreground">@android:color/system_neutral2_700</color>
+    <color name="ic_launcher_foreground">@android:color/system_neutral2_700</color>
     <color name="ic_rvkernel_background">@android:color/system_accent1_100</color>
     
     <!-- UI -->
