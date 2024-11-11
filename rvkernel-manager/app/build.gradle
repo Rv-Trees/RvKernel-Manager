@@ -45,7 +45,12 @@ android {
     buildFeatures {
         viewBinding true
     }
-    
+
+    applicationVariants.all { variant ->
+        variant.outputs.all { output ->
+            output.outputFileName = "RvKernel-Manager_v${versionName}-${variant.name}.apk"
+        }
+    }    
 }
 
 dependencies {
