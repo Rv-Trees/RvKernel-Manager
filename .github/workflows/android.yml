@@ -5,6 +5,9 @@ on:
     branches: [ "Mi8937" ]
   pull_request:
     branches: [ "Mi8937" ]
+    path:
+      - 'rvkernel-manager/**'
+  workflow_call:
 
 jobs:
   build:
@@ -45,5 +48,5 @@ jobs:
     - name: Upload build artifact
       uses: actions/upload-artifact@v4
       with:
-        name: RvKernel Manager
+        name: RvKernel-Manager
         path: rvkernel-manager/app/build/outputs/apk/release/*.apk
