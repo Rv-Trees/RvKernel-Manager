@@ -44,12 +44,10 @@ public class RvGPU {
 
     private boolean setAdrenoBoostMode(int value) {
         try {
-            Process process =
-                    Runtime.getRuntime()
-                            .exec(
-                                    "su -c echo " + value + " > " + "/sys/class/kgsl/kgsl-3d0/devfreq/adrenoboost");
+            String[] command = {"su", "-c", "echo", String.valueOf(value), ">", "/sys/class/kgsl/kgsl-3d0/devfreq/adrenoboost"};
+            ProcessBuilder processBuilder = new ProcessBuilder(command);
+            Process process = processBuilder.start();
             process.waitFor();
-
             return process.exitValue() == 0;
         } catch (Exception e) {
             e.printStackTrace();
@@ -86,10 +84,9 @@ public class RvGPU {
 
     private boolean setGpuThrottlingValue(int value) {
         try {
-            Process process =
-                    Runtime.getRuntime()
-                            .exec(
-                                    "su -c echo " + value + " > " + "/sys/class/kgsl/kgsl-3d0/throttling");
+            String[] command = {"su", "-c", "echo", String.valueOf(value), ">", "/sys/class/kgsl/kgsl-3d0/throttling"};
+            ProcessBuilder processBuilder = new ProcessBuilder(command);
+            Process process = processBuilder.start();
             process.waitFor();
             return process.exitValue() == 0;
         } catch (Exception e) {
@@ -138,10 +135,9 @@ public class RvGPU {
 
     private boolean SetMinGPUfreq(int value) {
         try {
-            Process process =
-                    Runtime.getRuntime()
-                            .exec(
-                                    "su -c echo " + value + " > " + "/sys/class/kgsl/kgsl-3d0/min_clock_mhz");
+            String[] command = {"su", "-c", "echo", String.valueOf(value), ">", "/sys/class/kgsl/kgsl-3d0/min_clock_mhz"};
+            ProcessBuilder processBuilder = new ProcessBuilder(command);
+            Process process = processBuilder.start();
             process.waitFor();
             return process.exitValue() == 0;
         } catch (Exception e) {
@@ -190,10 +186,9 @@ public class RvGPU {
 
     private boolean SetMaxGPUfreq(int value) {
         try {
-            Process process =
-                    Runtime.getRuntime()
-                            .exec(
-                                    "su -c echo " + value + " > " + "/sys/class/kgsl/kgsl-3d0/max_clock_mhz");
+            String[] command = {"su", "-c", "echo", String.valueOf(value), ">", "/sys/class/kgsl/kgsl-3d0/max_clock_mhz"};
+            ProcessBuilder processBuilder = new ProcessBuilder(command);
+            Process process = processBuilder.start();
             process.waitFor();
             return process.exitValue() == 0;
         } catch (Exception e) {
@@ -277,10 +272,12 @@ public class RvGPU {
                     builder.show();
                 });
     }
+
     private boolean setCurrentGovernor(String governor) {
         try {
-            Process process = Runtime.getRuntime()
-                    .exec("su -c echo " + governor + " > /sys/class/kgsl/kgsl-3d0/devfreq/governor");
+            String[] command = {"su", "-c", "echo", governor, ">", "/sys/class/kgsl/kgsl-3d0/devfreq/governor"};
+            ProcessBuilder processBuilder = new ProcessBuilder(command);
+            Process process = processBuilder.start();
             process.waitFor();
             return process.exitValue() == 0;
         } catch (Exception e) {
@@ -288,6 +285,7 @@ public class RvGPU {
             return false;
         }
     }
+
     public String loadCurrentGPUGovernor() {
         try {
             Process process = Runtime.getRuntime()
@@ -302,6 +300,7 @@ public class RvGPU {
         }
         return "Unknown";
     }
+
     private void loadAvailableGovernors() {
         try {
             Process process = Runtime.getRuntime()
