@@ -17,13 +17,12 @@ public class RvScheduler {
             setSchedAutoGroup(value);
         });
     }
-    
+
     private boolean setSchedAutoGroup(int value) {
         try {
-            Process process =
-                    Runtime.getRuntime()
-                            .exec(
-                                    "su -c echo " + value + " > " + "/proc/sys/kernel/sched_autogroup_enabled");
+            String[] command = {"su", "-c", "echo", String.valueOf(value), ">", "/proc/sys/kernel/sched_autogroup_enabled"};
+            ProcessBuilder processBuilder = new ProcessBuilder(command);
+            Process process = processBuilder.start();
             process.waitFor();
             return process.exitValue() == 0;
         } catch (Exception e) {
@@ -31,7 +30,7 @@ public class RvScheduler {
             return false;
         }
     }
-    
+
     private int loadSchedAutoGroup() {
         try {
             Process process =
@@ -48,7 +47,7 @@ public class RvScheduler {
         }
         return 0;
     }
-    
+
     public void schedChildRunFirstSwitch(Context context, Switch schedChildRunFirstSwitch) {
         int currentSchedChildRunFirstValue = loadSchedChildRunFirst();
         schedChildRunFirstSwitch.setChecked(currentSchedChildRunFirstValue == 1);
@@ -58,13 +57,12 @@ public class RvScheduler {
             setSchedChildRunFirst(value);
         });
     }
-    
+
     private boolean setSchedChildRunFirst(int value) {
         try {
-            Process process =
-                    Runtime.getRuntime()
-                            .exec(
-                                    "su -c echo " + value + " > " + "/proc/sys/kernel/sched_child_runs_first");
+            String[] command = {"su", "-c", "echo", String.valueOf(value), ">", "/proc/sys/kernel/sched_child_runs_first"};
+            ProcessBuilder processBuilder = new ProcessBuilder(command);
+            Process process = processBuilder.start();
             process.waitFor();
             return process.exitValue() == 0;
         } catch (Exception e) {
@@ -72,7 +70,7 @@ public class RvScheduler {
             return false;
         }
     }
-    
+
     private int loadSchedChildRunFirst() {
         try {
             Process process =
