@@ -17,13 +17,11 @@ public class RvCharging {
             setBypassCharging(value);
         });
     }
-    
+
     private boolean setBypassCharging(int value) {
         try {
-            Process process =
-                    Runtime.getRuntime()
-                            .exec(
-                                    "su -c echo " + value + " > " + "/sys/class/power_supply/battery/input_suspend");
+            ProcessBuilder processBuilder = new ProcessBuilder("su", "-c", "echo", String.valueOf(value), ">", "/sys/class/power_supply/battery/input_suspend");
+            Process process = processBuilder.start();
             process.waitFor();
             return process.exitValue() == 0;
         } catch (Exception e) {
@@ -31,7 +29,7 @@ public class RvCharging {
             return false;
         }
     }
-    
+
     private int loadBypassCharging() {
         try {
             Process process =
@@ -48,7 +46,7 @@ public class RvCharging {
         }
         return 0;
     }
-    
+
     public void fastChargingSwitch(Context context, Switch fastChargingSwitch) {
         int currentFastChargingValue = loadFastCharging();
         fastChargingSwitch.setChecked(currentFastChargingValue == 1);
@@ -58,13 +56,11 @@ public class RvCharging {
             setFastCharging(value);
         });
     }
-    
+
     private boolean setFastCharging(int value) {
         try {
-            Process process =
-                    Runtime.getRuntime()
-                            .exec(
-                                    "su -c echo " + value + " > " + "/sys/kernel/fast_charge/force_fast_charge");
+            ProcessBuilder processBuilder = new ProcessBuilder("su", "-c", "echo", String.valueOf(value), ">", "/sys/kernel/fast_charge/force_fast_charge");
+            Process process = processBuilder.start();
             process.waitFor();
             return process.exitValue() == 0;
         } catch (Exception e) {
@@ -72,7 +68,7 @@ public class RvCharging {
             return false;
         }
     }
-    
+
     private int loadFastCharging() {
         try {
             Process process =
@@ -89,7 +85,7 @@ public class RvCharging {
         }
         return 0;
     }
-    
+
     public void disableThermalChargingSwitch(Context context, Switch disableThermalChargingSwitch) {
         int currentDisableThermalChargingValue = loadDisableThermalCharging();
         disableThermalChargingSwitch.setChecked(currentDisableThermalChargingValue == 1);
@@ -99,13 +95,11 @@ public class RvCharging {
             setDisableThermalCharging(value);
         });
     }
-    
+
     private boolean setDisableThermalCharging(int value) {
         try {
-            Process process =
-                    Runtime.getRuntime()
-                            .exec(
-                                    "su -c echo " + value + " > " + "/sys/module/smb_lib/parameters/disable_thermal");
+            ProcessBuilder processBuilder = new ProcessBuilder("su", "-c", "echo", String.valueOf(value), ">", "/sys/module/smb_lib/parameters/disable_thermal");
+            Process process = processBuilder.start();
             process.waitFor();
             return process.exitValue() == 0;
         } catch (Exception e) {
@@ -113,7 +107,7 @@ public class RvCharging {
             return false;
         }
     }
-    
+
     private int loadDisableThermalCharging() {
         try {
             Process process =
