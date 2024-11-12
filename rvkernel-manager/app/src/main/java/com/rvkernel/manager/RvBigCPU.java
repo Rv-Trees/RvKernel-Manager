@@ -39,9 +39,8 @@ public class RvBigCPU {
 
     private boolean SetMinCPU4freq(int value) {
         try {
-            Process process =
-                    Runtime.getRuntime()
-                            .exec("su -c echo " + value + " > " + "/sys/devices/system/cpu/cpufreq/policy4/scaling_min_freq");
+            ProcessBuilder processBuilder = new ProcessBuilder("su", "-c", "echo", String.valueOf(value), ">", "/sys/devices/system/cpu/cpufreq/policy4/scaling_min_freq");
+            Process process = processBuilder.start();
             process.waitFor();
             return process.exitValue() == 0;
         } catch (Exception e) {
@@ -90,9 +89,8 @@ public class RvBigCPU {
 
     private boolean SetMaxCPU4freq(int value) {
         try {
-            Process process =
-                    Runtime.getRuntime()
-                            .exec("su -c echo " + value + " > " + "/sys/devices/system/cpu/cpufreq/policy4/scaling_max_freq");
+            ProcessBuilder processBuilder = new ProcessBuilder("su", "-c", "echo", String.valueOf(value), ">", "/sys/devices/system/cpu/cpufreq/policy4/scaling_max_freq");
+            Process process = processBuilder.start();
             process.waitFor();
             return process.exitValue() == 0;
         } catch (Exception e) {
@@ -193,8 +191,8 @@ public class RvBigCPU {
 
     private boolean setCurrentGovernor(String governor) {
         try {
-            Process process = Runtime.getRuntime()
-                    .exec("su -c echo " + governor + " > /sys/devices/system/cpu/cpufreq/policy4/scaling_governor");
+            ProcessBuilder processBuilder = new ProcessBuilder("su", "-c", "echo", governor, ">", "/sys/devices/system/cpu/cpufreq/policy4/scaling_governor");
+            Process process = processBuilder.start();
             process.waitFor();
             return process.exitValue() == 0;
         } catch (Exception e) {
