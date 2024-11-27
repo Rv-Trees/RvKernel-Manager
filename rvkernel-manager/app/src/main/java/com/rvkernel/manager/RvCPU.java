@@ -13,6 +13,9 @@ public class RvCPU {
     private String[] clockTexts;
     private int[] clockValues;
 
+    private String[] availableGovernors;
+    private String currentGovernor;
+
     public void showMinCPUfreq(Context context, Button btnMinCPUfreq) {
         loadClockValues();
         int currentClock = loadMinCPUfreq();
@@ -154,5 +157,73 @@ public class RvCPU {
             }
         }
         return "Unknown";
+    }
+
+    public void showAvailableCpuGovernors(Context context, Button btnCpuGovernor) {
+        loadAvailableGovernors();
+        currentGovernor = loadCurrentCpuGovernor();
+        btnCpuGovernor.setText(currentGovernor);
+        btnCpuGovernor.setOnClickListener(
+                v -> {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.RoundedDialog);
+                    builder.setTitle("Available Governors");
+                    builder.setItems(
+                            availableGovernors,
+                            (dialog, which) -> {
+                                String selectedGovernor = availableGovernors[which];
+
+                                if (setCurrentGovernor(selectedGovernor)) {
+                                    btnCpuGovernor.setText(selectedGovernor);
+                                }
+                            });
+                    builder.show();
+                });
+    }
+
+    private boolean setCurrentGovernor(String governor) {
+        try {
+            ProcessBuilder processBuilder = new ProcessBuilder("su", "-c", "echo", governor, ">", "/sys/devices/system/cpu/cpufreq/policy0/scaling_governor");
+            Process process = processBuilder.start();
+            process.waitFor();
+            return process.exitValue() == 0;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public String loadCurrentCpuGovernor() {
+        try {
+            Process process = Runtime.getRuntime()
+                    .exec("su -c cat /sys/devices/system/cpu/cpufreq/policy0/scaling_governor");
+            BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+            String line = reader.readLine();
+            if (line != null) {
+                return line.trim();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return "Unknown";
+    }
+
+    private void loadAvailableGovernors() {
+        try {
+            Process process = Runtime.getRuntime()
+                    .exec("su -c cat /sys/devices/system/cpu/cpufreq/policy0/scaling_available_governors");
+            BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+            String line;
+            StringBuilder sb = new StringBuilder();
+
+            while ((line = reader.readLine()) != null) {
+                sb.append(line).append(" ");
+            }
+
+            availableGovernors = sb.toString().trim().split("\\s+");
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            availableGovernors = new String[]{"error"};
+        }
     }
 }

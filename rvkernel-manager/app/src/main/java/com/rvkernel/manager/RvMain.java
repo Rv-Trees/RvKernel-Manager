@@ -44,6 +44,7 @@ public class RvMain extends AppCompatActivity {
     private RvCPU rvCPU;
     private MaterialButton btnMinCPUfreq;
     private MaterialButton btnMaxCPUfreq;
+    private MaterialButton btnCpuGovernor;
 
     // GPU
     private RvGPU rvGPU;
@@ -107,10 +108,12 @@ public class RvMain extends AppCompatActivity {
     private void setupCPU() {
         btnMinCPUfreq = findViewById(R.id.btnMinCPUfreq);
         btnMaxCPUfreq = findViewById(R.id.btnMaxCPUfreq);
+	btnCpuGovernor = findViewById(R.id.btnCpuGovernor);
 
         rvCPU = new RvCPU();
         rvCPU.showMinCPUfreq(this, btnMinCPUfreq);
         rvCPU.showMaxCPUfreq(this, btnMaxCPUfreq);
+	rvCPU.showAvailableCpuGovernors(this, btnCpuGovernor);
     }
 
     private void setupGPU() {
@@ -140,6 +143,8 @@ public class RvMain extends AppCompatActivity {
                 int minCPUFreq = rvCPU.loadMinCPUfreq();
                 int maxCPUFreq = rvCPU.loadMaxCPUfreq();
 
+		String currentCpuGovernor = rvCPU.loadCurrentCpuGovernor();
+
                 mainHandler.post(() -> {
                     if (btnMinCPUfreq != null) {
                         btnMinCPUfreq.setText((minCPUFreq / 1000) + " MHz");
@@ -147,6 +152,9 @@ public class RvMain extends AppCompatActivity {
                     if (btnMaxCPUfreq != null) {
                         btnMaxCPUfreq.setText((maxCPUFreq / 1000) + " MHz");
                     }
+		    if (btnCpuGovernor != null) {
+			btnCpuGovernor.setText(currentCpuGovernor);
+		    }
                 });
             });
         }

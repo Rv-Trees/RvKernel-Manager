@@ -71,7 +71,6 @@
                 android:gravity="center_vertical"
                 android:paddingLeft="25dp"
                 android:paddingRight="25dp"
-                android:paddingBottom="20dp"
                 android:paddingTop="20dp">
 
                 <TextView
@@ -93,6 +92,37 @@
                     android:layout_width="wrap_content"
                     android:id="@+id/btnMaxCPUfreq" />
     
+            </LinearLayout>
+
+	    <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:paddingLeft="25dp"
+                android:paddingRight="25dp"
+                android:paddingBottom="20dp"
+                android:paddingTop="20dp">
+
+                <TextView
+                    android:layout_height="wrap_content"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:paddingBottom="3dp"
+                    android:clickable="false"
+                    android:textSize="18sp"
+                    android:textColor="@color/textColorPrimary"
+                    android:text="@string/cpu_governor" />
+
+                <com.google.android.material.button.MaterialButton
+                    app:backgroundTint="@color/colorContainerOverlay"
+                    app:strokeWidth="2dp"
+                    app:strokeColor="?attr/colorPrimary"
+                    android:textColor="@color/textColorPrimary"
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:id="@+id/btnCpuGovernor" />
+
             </LinearLayout>
 
         </LinearLayout>

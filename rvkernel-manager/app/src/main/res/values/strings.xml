@@ -13,6 +13,7 @@
 
     <!-- CPU -->
     <string name="cpu_title">CPU</string>
+    <string name="cpu_governor">Governor</string>
 
     <!-- GPU -->
     <string name="gpu_title">GPU</string>
