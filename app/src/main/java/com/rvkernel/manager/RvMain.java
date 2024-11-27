@@ -135,35 +135,39 @@ public class RvMain extends AppCompatActivity {
     }
 
     private void updateCPUButtonUI() {
-        executor.execute(() -> {
-            int minCPUFreq = rvCPU.loadMinCPUfreq();
-            int maxCPUFreq = rvCPU.loadMaxCPUfreq();
+	if (executor != null && !executor.isShutdown()) {
+            executor.execute(() -> {
+                int minCPUFreq = rvCPU.loadMinCPUfreq();
+                int maxCPUFreq = rvCPU.loadMaxCPUfreq();
 
-            mainHandler.post(() -> {
-                if (btnMinCPUfreq != null) {
-                    btnMinCPUfreq.setText((minCPUFreq / 1000) + " MHz");
-                }
-                if (btnMaxCPUfreq != null) {
-                    btnMaxCPUfreq.setText((maxCPUFreq / 1000) + " MHz");
-                }
+                mainHandler.post(() -> {
+                    if (btnMinCPUfreq != null) {
+                        btnMinCPUfreq.setText((minCPUFreq / 1000) + " MHz");
+                    }
+                    if (btnMaxCPUfreq != null) {
+                        btnMaxCPUfreq.setText((maxCPUFreq / 1000) + " MHz");
+                    }
+                });
             });
-        });
+        }
     }
 
     private void updateGPUButtonUI() {
-        executor.execute(() -> {
-            int minGPUFreq = rvGPU.loadMinGPUfreq();
-            int maxGPUFreq = rvGPU.loadMaxGPUfreq();
+	if (executor != null && !executor.isShutdown()) {
+            executor.execute(() -> {
+                int minGPUFreq = rvGPU.loadMinGPUfreq();
+                int maxGPUFreq = rvGPU.loadMaxGPUfreq();
 
-            mainHandler.post(() -> {
-                if (btnMinGPUfreq != null) {
-                    btnMinGPUfreq.setText(minGPUFreq + " MHz");
-                }
-                if (btnMaxGPUfreq != null) {
-                    btnMaxGPUfreq.setText(maxGPUFreq + " MHz");
-                }
+                mainHandler.post(() -> {
+                    if (btnMinGPUfreq != null) {
+                        btnMinGPUfreq.setText(minGPUFreq + " MHz");
+                    }
+                    if (btnMaxGPUfreq != null) {
+                        btnMaxGPUfreq.setText(maxGPUFreq + " MHz");
+                    }
+                });
             });
-        });
+        }
     }
 
     @Override
