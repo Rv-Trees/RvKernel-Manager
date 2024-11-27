@@ -29,7 +29,7 @@ import java.util.concurrent.Executors;
 public class RvMain extends AppCompatActivity {
 
     public static final String[] REQUIRED_KERNEL = {
-            "4.19.322-RvKernel-Mi8937-v1.4"
+            "4.19.322-RvKernel-Mi8937-v1.5"
     };
 
     private ExecutorService executor;
