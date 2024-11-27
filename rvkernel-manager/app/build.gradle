@@ -5,7 +5,7 @@ plugins {
 
 android {
     namespace 'com.rvkernel.manager'
-    compileSdk 34
+    compileSdk 35
 
     signingConfigs {
 	release {
@@ -19,7 +19,7 @@ android {
     defaultConfig {
         applicationId "com.rvkernel.manager"
         minSdk 33
-        targetSdk 34
+        targetSdk 35
         versionCode 15
         versionName "1.5-be4"
         
