@@ -14,8 +14,6 @@ import android.provider.Settings;
 import android.widget.Button;
 import android.widget.Switch;
 import android.widget.TextView;
-import android.view.Window;
-import android.view.WindowInsetsController;
 
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.imageview.ShapeableImageView;
@@ -25,6 +23,7 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
+import androidx.core.view.WindowCompat;
 
 import java.io.File;
 import java.util.concurrent.ExecutorService;
@@ -96,6 +95,7 @@ public class RvMain extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+	WindowCompat.setDecorFitsSystemWindows(getWindow(), false);
         setContentView(R.layout.rvmain);
 
         if (!RvRoot.RootAccess()) {
@@ -109,18 +109,6 @@ public class RvMain extends AppCompatActivity {
         }
 
         requestStoragePermission();
-
-        Window window = getWindow();
-        if (window != null) {
-            WindowInsetsController insetsController = window.getInsetsController();
-            if (insetsController != null) {
-                if ((getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_YES) {
-                    insetsController.setSystemBarsAppearance(0, WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS);
-                } else {
-                    insetsController.setSystemBarsAppearance(WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS, WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS);
-                }
-            }
-        }
 
         executor = Executors.newSingleThreadExecutor();
         mainHandler = new Handler(Looper.getMainLooper());
