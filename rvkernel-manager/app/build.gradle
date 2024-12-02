@@ -1,7 +1,10 @@
-
 plugins {
     id 'com.android.application'
 }
+
+def keystorePropertiesFile = rootProject.file("keystore.properties")
+def keystoreProperties = new Properties()
+keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
 
 android {
     namespace 'com.rvkernel.manager'
@@ -9,10 +12,10 @@ android {
 
     signingConfigs {
 	release {
-	    storeFile file(KEYSTORE_FILE)
-	    storePassword KEYSTORE_PASSWORD
-	    keyAlias KEY_ALIAS
-	    keyPassword KEY_PASSWORD
+	    keyAlias keystoreProperties['keyAlias']
+            keyPassword keystoreProperties['keyPassword']
+            storeFile file(keystoreProperties['storeFile'])
+            storePassword keystoreProperties['storePassword']
         }
     }
     
