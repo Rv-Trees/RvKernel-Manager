@@ -38,8 +38,8 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_23
-        targetCompatibility JavaVersion.VERSION_23
+        sourceCompatibility JavaVersion.VERSION_21
+        targetCompatibility JavaVersion.VERSION_21
     }
 
     buildFeatures {
@@ -51,6 +51,12 @@ android {
             output.outputFileName = "RvKernel-Manager_v${versionName}-${variant.name}.apk"
         }
     }    
+}
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(21)
+    }
 }
 
 dependencies {
