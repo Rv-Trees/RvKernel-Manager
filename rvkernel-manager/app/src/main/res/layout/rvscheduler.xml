@@ -25,7 +25,7 @@
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         app:cardCornerRadius="16dp"
-        app:cardBackgroundColor="@color/colorContainerOverlay"
+        app:cardBackgroundColor="?attr/colorPrimaryContainer"
         app:strokeWidth="2dp"
         app:strokeColor="?attr/colorPrimary">
 
@@ -50,15 +50,12 @@
                     android:paddingBottom="3dp"
                     android:clickable="false"
                     android:textSize="18sp"
-                    android:textColor="@color/textColorPrimary"
                     android:text="@string/sched_autogroup_enabled" />
 
                 <Switch
                     android:layout_height="wrap_content"
                     android:layout_width="wrap_content"
-                    android:id="@+id/switchSchedAutoGroup"
-                    android:thumb="@drawable/switch_foggy_thumb"
-                    android:track="@drawable/switch_foggy_track" />
+                    android:id="@+id/switchSchedAutoGroup"/>
 
             </LinearLayout>
             
@@ -79,15 +76,12 @@
                     android:paddingBottom="3dp"
                     android:clickable="false"
                     android:textSize="18sp"
-                    android:textColor="@color/textColorPrimary"
                     android:text="@string/sched_child_runs_first" />
 
                 <Switch
                     android:layout_height="wrap_content"
                     android:layout_width="wrap_content"
-                    android:id="@+id/switchSchedChildRunFirst"
-                    android:thumb="@drawable/switch_foggy_thumb"
-                    android:track="@drawable/switch_foggy_track" />
+                    android:id="@+id/switchSchedChildRunFirst"/>
 
             </LinearLayout>
 
